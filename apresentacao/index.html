@@ -10,8 +10,8 @@
 <style>
   html, body { height: 100%; }
   body { overflow: hidden; background: #120d10; }
-  .stage { position: fixed; inset: 0; display: grid; place-items: center; }
-  .deck { position: relative; width: 1920px; height: 1080px; transform-origin: center center; }
+  .stage { position: fixed; inset: 0; overflow: hidden; }
+  .deck { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center center; transform: translate(-50%, -50%); }
   .slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--pearl); color: var(--ink);
     padding: 112px 128px; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility .45s; }
   .slide.is-on { opacity: 1; visibility: visible; }
@@ -154,7 +154,7 @@
     @page { size: 1920px 1080px; margin: 0; }
     html, body { height: auto; overflow: visible; background: none; }
     .stage { position: static; display: block; }
-    .deck { transform: none !important; width: 1920px; height: auto; }
+    .deck { position: static; transform: none !important; width: 1920px; height: auto; }
     .slide { position: relative; opacity: 1; visibility: visible; break-after: page; page-break-after: always; transition: none; }
     .ui, .progress { display: none; }
   }
@@ -425,7 +425,7 @@
   (function () {
     var deck = document.getElementById('deck'), slides = deck.querySelectorAll('.slide');
     var count = document.getElementById('count'), progress = document.getElementById('progress'), i = 0;
-    function fit() { var s = Math.min(innerWidth / 1920, innerHeight / 1080); deck.style.transform = 'scale(' + s + ')'; }
+    function fit() { var s = Math.min(innerWidth / 1920, innerHeight / 1080); deck.style.transform = 'translate(-50%, -50%) scale(' + s + ')'; }
     function go(n) {
       i = Math.max(0, Math.min(slides.length - 1, n));
       slides.forEach(function (s, k) { s.classList.toggle('is-on', k === i); s.setAttribute('aria-hidden', String(k !== i)); });
