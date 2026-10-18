@@ -1,0 +1,129 @@
+/* Bloomina Design System — tokens + componentes
+   Uma fonte para o site e para a apresentação. Tema Pérola (claro) e Noite de gala (escuro). */
+/* fontes locais (OFL) */
+@font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("fonts/jost-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("fonts/jost-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+
+:root {
+  /* cor */
+  --pearl: #fbf6f4; --pearl-raised: #ffffff; --linen: #eadfd2; --line: #e6d6d3;
+  --blush: #f3d9de; --blush-deep: #e7b9c3;
+  --orchid: #9c6fb8; --orchid-ink: #6b4387;
+  --gold: #b8893b; --gold-ink: #7e5a1e; --on-gold: #33251f;
+  --silver: #c9c6c4;
+  --ink: #33251f; --ink-muted: #6e5a55;
+  --glass-fill: rgba(255, 255, 255, .46); --glass-fill-strong: rgba(255, 255, 255, .72);
+  --glass-tint: rgba(243, 217, 222, .42); --glass-stroke: rgba(255, 255, 255, .85);
+  --scrim: rgba(51, 37, 31, .38);
+  --shadow-glass: 0 12px 40px rgba(110, 67, 90, .16), inset 0 1px 0 rgba(255, 255, 255, .9);
+  --shadow-jewel: 0 2px 6px rgba(51, 37, 31, .10);
+  /* tipo */
+  --font-display: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --font-sans: Jost, "Futura", "Century Gothic", system-ui, sans-serif;
+  /* espaço, raio, vidro */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --radius-sm: 6px; --radius-md: 14px; --radius-lg: 28px; --radius-pill: 999px;
+  --glass-blur-sm: 8px; --glass-blur: 20px; --glass-blur-lg: 36px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pearl: #1a1317; --pearl-raised: #251b21; --linen: #3a2e2a; --line: #3a2a31;
+    --blush: #4a2c36; --blush-deep: #6b3d4c; --orchid: #b58ad4; --orchid-ink: #d8bdea;
+    --gold: #d9b26a; --gold-ink: #e3c483; --on-gold: #1a1317; --silver: #8f8a8c;
+    --ink: #f6ece8; --ink-muted: #c4b0aa;
+    --glass-fill: rgba(255, 255, 255, .08); --glass-fill-strong: rgba(37, 27, 33, .72);
+    --glass-tint: rgba(181, 138, 212, .14); --glass-stroke: rgba(255, 255, 255, .18); --scrim: rgba(10, 6, 8, .55);
+    --shadow-glass: 0 12px 40px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .16);
+    --shadow-jewel: 0 2px 6px rgba(0, 0, 0, .4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --pearl: #1a1317; --pearl-raised: #251b21; --linen: #3a2e2a; --line: #3a2a31;
+  --blush: #4a2c36; --blush-deep: #6b3d4c; --orchid: #b58ad4; --orchid-ink: #d8bdea;
+  --gold: #d9b26a; --gold-ink: #e3c483; --on-gold: #1a1317; --silver: #8f8a8c;
+  --ink: #f6ece8; --ink-muted: #c4b0aa;
+  --glass-fill: rgba(255, 255, 255, .08); --glass-fill-strong: rgba(37, 27, 33, .72);
+  --glass-tint: rgba(181, 138, 212, .14); --glass-stroke: rgba(255, 255, 255, .18); --scrim: rgba(10, 6, 8, .55);
+  --shadow-glass: 0 12px 40px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .16);
+  --shadow-jewel: 0 2px 6px rgba(0, 0, 0, .4);
+  color-scheme: dark;
+}
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--pearl); color: var(--ink); font: 400 16px/26px var(--font-sans); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: var(--orchid-ink); }
+:focus-visible { outline: 2px solid var(--orchid-ink); outline-offset: 2px; }
+h1, h2, h3 { text-wrap: balance; }
+
+/* tipo */
+.bl-display-xl { font: 500 clamp(44px, 7vw, 88px)/0.98 var(--font-display); letter-spacing: -.01em; margin: 0; }
+.bl-display-l { font: 500 clamp(34px, 4.6vw, 56px)/1.05 var(--font-display); margin: 0; }
+.bl-title { font: 600 28px/34px var(--font-display); margin: 0; }
+.bl-quote { font: italic 400 22px/30px var(--font-display); color: var(--ink-muted); margin: 0; }
+.bl-eyebrow { font: 500 12px/16px var(--font-sans); letter-spacing: .24em; text-transform: uppercase; color: var(--gold-ink); margin: 0; }
+.bl-body-s { font: 400 14px/22px var(--font-sans); color: var(--ink-muted); margin: 0; }
+.bl-price { font: 600 24px/28px var(--font-display); font-variant-numeric: tabular-nums; color: var(--gold-ink); white-space: nowrap; }
+
+/* ---------- aura: a aquarela que fica atrás do vidro ---------- */
+.bl-aura { position: relative; isolation: isolate; overflow: hidden; }
+.bl-aura::before { content: ""; position: absolute; inset: -15%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(36% 44% at 18% 28%, var(--blush-deep), transparent 70%),
+    radial-gradient(28% 38% at 82% 18%, var(--orchid), transparent 70%),
+    radial-gradient(30% 34% at 74% 84%, var(--gold), transparent 70%),
+    radial-gradient(44% 50% at 30% 88%, var(--blush), transparent 72%);
+  opacity: .7; filter: blur(10px); }
+
+/* ---------- vidro ---------- */
+.bl-glass { background: var(--glass-fill); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%); backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  border: 1px solid var(--glass-stroke); box-shadow: var(--shadow-glass); border-radius: var(--radius-lg); color: var(--ink); }
+.bl-glass--blush { background: var(--glass-tint); }
+.bl-glass--strong { background: var(--glass-fill-strong); }
+
+/* ---------- botão ---------- */
+.bl-btn { font: 500 14px/20px var(--font-sans); letter-spacing: .12em; text-transform: uppercase; min-height: 48px; padding: 0 var(--space-6);
+  border-radius: var(--radius-pill); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); text-decoration: none; transition: background .2s, border-color .2s, transform .2s; }
+.bl-btn:active { transform: translateY(1px); }
+.bl-btn--gold { background: var(--gold); color: var(--on-gold); border: 1px solid var(--gold-ink); box-shadow: var(--shadow-jewel); }
+.bl-btn--gold:hover { border-color: var(--on-gold); }
+.bl-btn--glass { background: var(--glass-fill); color: var(--ink); border: 1px solid var(--glass-stroke); box-shadow: var(--shadow-glass); -webkit-backdrop-filter: blur(var(--glass-blur-sm)); backdrop-filter: blur(var(--glass-blur-sm)); }
+.bl-btn--glass:hover { background: var(--glass-fill-strong); }
+.bl-btn--ink { background: var(--ink); color: var(--pearl); border: 1px solid var(--ink); }
+
+/* ---------- selo ---------- */
+.bl-badge { display: inline-flex; align-items: center; gap: 6px; font: 500 11px/16px var(--font-sans); letter-spacing: .2em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: var(--radius-sm); color: var(--ink); background: var(--glass-fill-strong); border: 1px solid var(--glass-stroke);
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm)); backdrop-filter: blur(var(--glass-blur-sm)); white-space: nowrap; }
+.bl-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot, var(--orchid)); }
+.bl-badge--gold { --dot: var(--gold); } .bl-badge--silver { --dot: var(--silver); } .bl-badge--orchid { --dot: var(--orchid); } .bl-badge--blush { --dot: var(--blush-deep); }
+
+/* ---------- etiqueta de preço ---------- */
+.bl-tag { display: inline-grid; gap: 2px; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); min-width: 160px;
+  background: var(--glass-fill-strong); border: 1px solid var(--glass-stroke); box-shadow: var(--shadow-glass);
+  -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur)); }
+.bl-tag__name { font: 500 11px/16px var(--font-sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.bl-tag__rule { height: 1px; background: var(--gold); opacity: .7; margin: 4px 0; }
+.bl-tag__inst { font: 400 12px/18px var(--font-sans); color: var(--ink-muted); }
+
+/* ---------- card de produto ---------- */
+.bl-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; background: var(--linen); box-shadow: var(--shadow-jewel); isolation: isolate; }
+.bl-card__art { aspect-ratio: 4 / 5; display: grid; place-items: center; padding: 14% 10% 34%;
+  background: radial-gradient(60% 50% at 50% 40%, var(--pearl-raised), transparent 75%), var(--linen); }
+.bl-card__art img { width: 100%; height: auto; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.bl-card:hover .bl-card__art img { transform: scale(1.05) rotate(-2deg); }
+.bl-card__badge { position: absolute; top: var(--space-3); left: var(--space-3); }
+.bl-card__info { position: absolute; left: var(--space-3); right: var(--space-3); bottom: var(--space-3); padding: var(--space-4); border-radius: var(--radius-md);
+  display: grid; gap: var(--space-1); background: var(--glass-fill-strong); border: 1px solid var(--glass-stroke); box-shadow: var(--shadow-glass);
+  -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur)); }
+.bl-card__row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); }
+.bl-card__name { font: 600 21px/26px var(--font-display); margin: 0; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

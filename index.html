@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bloomina Semijoias</title>
+<meta name="description" content="Bloomina, curadoria de semijoias. Floresça no seu estilo. Página demonstrativa do design system com peças fictícias.">
+<link rel="icon" href="assets/logo-avatar.png">
+<link rel="stylesheet" href="assets/bloomina.css">
+<style>
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px)); }
+
+  /* topo */
+  .top { position: sticky; top: 0; z-index: 20; padding-top: env(safe-area-inset-top, 0px); }
+  .top__bar { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-3); padding: 8px 8px 8px 10px; border-radius: var(--radius-pill); }
+  .brand { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; color: var(--ink); }
+  .brand img { width: 44px; height: 44px; border-radius: 50%; }
+  .brand span { font: 500 26px/1 var(--font-display); }
+  .nav { display: flex; gap: var(--space-6); margin-left: auto; }
+  .nav a { color: var(--ink); text-decoration: none; font: 500 12px/16px var(--font-sans); letter-spacing: .2em; text-transform: uppercase; }
+  .nav a:hover { color: var(--gold-ink); }
+  .theme { display: inline-flex; padding: 3px; border-radius: var(--radius-pill); background: var(--glass-fill); border: 1px solid var(--glass-stroke); }
+  .theme button { font: 500 11px/16px var(--font-sans); letter-spacing: .14em; text-transform: uppercase; border: 0; background: transparent; color: var(--ink-muted); padding: 8px 12px; border-radius: var(--radius-pill); cursor: pointer; min-height: 36px; }
+  .theme button[aria-pressed="true"] { background: var(--ink); color: var(--pearl); }
+  @media (max-width: 860px) { .nav { display: none; } .theme { margin-left: auto; } .top__wa { display: none; } }
+
+  /* hero */
+  .hero { padding-block: clamp(48px, 8vw, 96px) clamp(56px, 8vw, 112px); }
+  .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .hero__copy { display: grid; gap: var(--space-6); min-width: 0; }
+  .hero__copy p.lead { font-size: 18px; line-height: 30px; color: var(--ink-muted); max-width: 46ch; margin: 0; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .hero__stage { position: relative; aspect-ratio: 1 / 1.05; }
+  .hero__pane { position: absolute; inset: 6% 4% 10% 8%; display: grid; place-items: center; padding: 12%; }
+  .hero__pane img { width: 100%; animation: float 7s ease-in-out infinite; }
+  .hero__tag { position: absolute; right: 0; bottom: 4%; }
+  .hero__badge { position: absolute; left: 0; top: 2%; }
+  @keyframes float { 50% { transform: translateY(-10px) rotate(-1.5deg); } }
+  @media (max-width: 860px) { .hero__grid { grid-template-columns: 1fr; } .hero__stage { max-width: 460px; width: 100%; justify-self: center; } }
+
+  /* destaques */
+  section { padding-block: clamp(48px, 7vw, 88px); }
+  .head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-6); margin-bottom: var(--space-8); }
+  .head > div { display: grid; gap: var(--space-3); }
+  .chips { display: flex; gap: var(--space-4); overflow-x: auto; padding: 6px 4px 12px; scrollbar-width: none; }
+  .chip { flex: 0 0 auto; display: grid; justify-items: center; gap: var(--space-2); background: none; border: 0; cursor: pointer; color: var(--ink); font: 500 12px/16px var(--font-sans); letter-spacing: .14em; text-transform: uppercase; padding: 0; }
+  .chip__ring { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; padding: 3px; border: 2px solid var(--line); transition: border-color .2s; }
+  .chip__in { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; overflow: hidden; }
+  .chip__in img { width: 70%; }
+  .chip[aria-pressed="true"] .chip__ring { border-color: var(--gold); }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  .bl-card[hidden] { display: none; }
+  .bl-card__cta { margin-top: var(--space-2); font: 500 12px/16px var(--font-sans); letter-spacing: .16em; text-transform: uppercase; color: var(--orchid-ink); text-decoration: none; }
+
+  /* banca */
+  .banca { display: grid; grid-template-columns: 1.2fr .8fr; gap: var(--space-8); align-items: center; }
+  .banca__photo { position: relative; border-radius: var(--radius-lg); overflow: hidden; }
+  .banca__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .banca__cap { position: absolute; left: var(--space-4); bottom: var(--space-4); right: var(--space-4); padding: var(--space-4) var(--space-6); max-width: 380px; }
+  .banca__copy { display: grid; gap: var(--space-4); }
+  @media (max-width: 860px) { .banca { grid-template-columns: 1fr; } }
+
+  /* cuidados */
+  .care { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+  .care article { padding: var(--space-8); display: grid; gap: var(--space-3); align-content: start; }
+  .care svg { width: 36px; height: 36px; stroke: var(--orchid-ink); }
+  @media (max-width: 860px) { .care { grid-template-columns: 1fr; } }
+
+  /* contato */
+  .cta { text-align: center; padding: clamp(40px, 6vw, 72px) var(--space-6); display: grid; gap: var(--space-4); justify-items: center; }
+  .cta .bl-display-l { max-width: 18ch; }
+  .contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); }
+  footer { padding-block: var(--space-12) calc(var(--space-12) + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: space-between; align-items: center; }
+  .demo-note { font: 400 13px/20px var(--font-sans); color: var(--ink-muted); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="top__bar bl-glass">
+      <a class="brand" href="#inicio" aria-label="Bloomina, início"><img src="assets/logo-avatar.png" alt=""><span>Bloomina</span></a>
+      <nav class="nav" aria-label="Seções">
+        <a href="#pecas">Peças</a><a href="#banca">A banca</a><a href="#cuidados">Cuidados</a><a href="#contato">Contato</a>
+      </nav>
+      <div class="theme" role="group" aria-label="Tema">
+        <button type="button" data-set-theme="light" aria-pressed="false">Pérola</button>
+        <button type="button" data-set-theme="dark" aria-pressed="false">Noite</button>
+      </div>
+      <a class="bl-btn bl-btn--gold top__wa" href="https://wa.me/5521981264144" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero bl-aura">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="bl-eyebrow">Curadoria de semijoias</p>
+        <h1 class="bl-display-xl">Floresça no seu estilo</h1>
+        <p class="lead">Semijoias em banho de ouro 18k e prata 925, escolhidas uma a uma para acompanhar você do dia à noite.</p>
+        <div class="hero__ctas">
+          <a class="bl-btn bl-btn--gold" href="#pecas">Ver as peças</a>
+          <a class="bl-btn bl-btn--glass" href="https://wa.me/5521981264144" target="_blank" rel="noopener">Chama no WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero__stage" aria-label="Peça em destaque: argolas Aurora">
+        <div class="hero__pane bl-glass bl-glass--blush"><img src="assets/pecas/argola-aurora.svg" alt="Argolas trançadas douradas"></div>
+        <span class="hero__badge bl-badge bl-badge--orchid">Novidade</span>
+        <div class="hero__tag bl-tag">
+          <span class="bl-tag__name">Argola Aurora</span><span class="bl-tag__rule" aria-hidden="true"></span>
+          <span class="bl-price">R$ 97</span><span class="bl-tag__inst">ou 3x de R$ 32,33</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="pecas">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="bl-eyebrow">Coleção Primavera</p>
+          <h2 class="bl-display-l">Peças da semana</h2>
+        </div>
+        <p class="bl-body-s">Toque numa categoria para filtrar.</p>
+      </div>
+      <div class="chips" role="group" aria-label="Categorias">
+        <button class="chip" type="button" data-filter="todas" aria-pressed="true"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/anel-petala.svg" alt=""></span></span>Todas</button>
+        <button class="chip" type="button" data-filter="colares" aria-pressed="false"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/colar-ponto-de-luz.svg" alt=""></span></span>Colares</button>
+        <button class="chip" type="button" data-filter="brincos" aria-pressed="false"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/brinco-gota-orquidea.svg" alt=""></span></span>Brincos</button>
+        <button class="chip" type="button" data-filter="pulseiras" aria-pressed="false"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/pulseira-riviera.svg" alt=""></span></span>Pulseiras</button>
+        <button class="chip" type="button" data-filter="aneis" aria-pressed="false"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/anel-petala.svg" alt=""></span></span>Anéis</button>
+      </div>
+      <div class="grid" id="grid">
+        <article class="bl-card" data-cat="brincos">
+          <div class="bl-card__art"><img src="assets/pecas/argola-aurora.svg" alt="Argolas trançadas douradas"></div>
+          <span class="bl-card__badge bl-badge bl-badge--orchid">Novidade</span>
+          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Argola Aurora</h3><span class="bl-price">R$ 97</span></div><p class="bl-body-s">Banho de ouro 18k · trançada</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20a%20Argola%20Aurora" target="_blank" rel="noopener">Quero essa →</a></div>
+        </article>
+        <article class="bl-card" data-cat="colares">
+          <div class="bl-card__art"><img src="assets/pecas/colar-ponto-de-luz.svg" alt="Colar dourado com pingente de zircônia"></div>
+          <span class="bl-card__badge bl-badge bl-badge--gold">Ouro 18k</span>
+          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Colar Ponto de Luz</h3><span class="bl-price">R$ 127</span></div><p class="bl-body-s">Banho de ouro 18k · zircônia</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20o%20Colar%20Ponto%20de%20Luz" target="_blank" rel="noopener">Quero essa →</a></div>
+        </article>
+        <article class="bl-card" data-cat="aneis">
+          <div class="bl-card__art"><img src="assets/pecas/anel-petala.svg" alt="Anel dourado com flor de pedras lilás"></div>
+          <span class="bl-card__badge bl-badge bl-badge--blush">Últimas peças</span>
+          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Anel Pétala</h3><span class="bl-price">R$ 87</span></div><p class="bl-body-s">Banho de ouro 18k · cristais lilás</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20o%20Anel%20P%C3%A9tala" target="_blank" rel="noopener">Quero essa →</a></div>
+        </article>
+        <article class="bl-card" data-cat="brincos">
+          <div class="bl-card__art"><img src="assets/pecas/brinco-gota-orquidea.svg" alt="Brincos de gota com pedra lilás"></div>
+          <span class="bl-card__badge bl-badge bl-badge--orchid">Novidade</span>
+          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Gota Orquídea</h3><span class="bl-price">R$ 79</span></div><p class="bl-body-s">Banho de ouro 18k · cristal lilás</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20o%20brinco%20Gota%20Orqu%C3%ADdea" target="_blank" rel="noopener">Quero essa →</a></div>
+        </article>
+        <article class="bl-card" data-cat="pulseiras">
+          <div class="bl-card__art"><img src="assets/pecas/pulseira-riviera.svg" alt="Pulseira riviera de prata com zircônias"></div>
+          <span class="bl-card__badge bl-badge bl-badge--silver">Prata 925</span>
+          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Riviera Lua</h3><span class="bl-price">R$ 147</span></div><p class="bl-body-s">Prata 925 · zircônias · antialérgica</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20a%20pulseira%20Riviera%20Lua" target="_blank" rel="noopener">Quero essa →</a></div>
+        </article>
+        <article class="bl-card" data-cat="brincos">
+          <div class="bl-card__art"><img src="assets/pecas/ear-cuff-lirio.svg" alt="Ear cuff dourado cravejado"></div>
+          <span class="bl-card__badge bl-badge bl-badge--gold">Ouro 18k</span>
+          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Ear Cuff Lírio</h3><span class="bl-price">R$ 57</span></div><p class="bl-body-s">Banho de ouro 18k · cravejado</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20o%20Ear%20Cuff%20L%C3%ADrio" target="_blank" rel="noopener">Quero essa →</a></div>
+        </article>
+      </div>
+      <p class="demo-note" style="margin-top: var(--space-6)">Peças, nomes e preços desta página são fictícios, criados para demonstrar o design system.</p>
+    </div>
+  </section>
+
+  <section id="banca" class="bl-aura">
+    <div class="wrap banca">
+      <figure class="banca__photo" style="margin:0">
+        <img src="assets/fotos/banca.jpg" alt="A banca da Bloomina: cetim rosé, bustos de linho e semijoias douradas e prateadas">
+        <figcaption class="banca__cap bl-glass bl-glass--strong"><p class="bl-eyebrow">Da banca para você</p><p class="bl-body-s" style="color:var(--ink)">Cada peça passa pelas nossas mãos antes de chegar às suas.</p></figcaption>
+      </figure>
+      <div class="banca__copy">
+        <p class="bl-eyebrow">A curadoria</p>
+        <h2 class="bl-display-l">Escolhidas uma a uma</h2>
+        <p style="margin:0; max-width:46ch">Curadoria é escolher com cuidado. Testamos o banho, o fecho e o conforto de cada peça antes de colocar na banca. Se não usaríamos todo dia, não entra.</p>
+        <p class="bl-quote">“Vem brilhar com a gente.”</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cuidados">
+    <div class="wrap">
+      <div class="head"><div><p class="bl-eyebrow">Para durar mais</p><h2 class="bl-display-l">Cuidados com a sua peça</h2></div></div>
+      <div class="care">
+        <article class="bl-glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>
+          <h3 class="bl-title">Guarde separada</h3>
+          <p class="bl-body-s">Use o saquinho que vai com a peça. Assim uma não risca a outra.</p>
+        </article>
+        <article class="bl-glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/><path d="M4 4l16 16"/></svg>
+          <h3 class="bl-title">Longe de água e perfume</h3>
+          <p class="bl-body-s">Tire antes do banho, da piscina e da academia. Perfume e creme primeiro, joia depois.</p>
+        </article>
+        <article class="bl-glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.2 5.4L20 9l-4.4 3.8L17 19l-5-3-5 3 1.4-6.2L4 9l5.8-.6z"/></svg>
+          <h3 class="bl-title">Brilho com flanela</h3>
+          <p class="bl-body-s">Passe uma flanela macia e seca depois de usar. Nada de produto abrasivo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="wrap">
+      <div class="cta bl-glass bl-glass--blush bl-aura">
+        <p class="bl-eyebrow">Atendimento</p>
+        <h2 class="bl-display-l">Viu uma peça que é a sua cara?</h2>
+        <p class="bl-body-s" style="color:var(--ink)">Manda uma mensagem que a gente separa para você.</p>
+        <div class="contacts">
+          <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144" target="_blank" rel="noopener">WhatsApp 21 98126-4144</a>
+          <a class="bl-btn bl-btn--glass" href="https://www.instagram.com/usebloomina.semijoias/" target="_blank" rel="noopener">@usebloomina.semijoias</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#inicio"><img src="assets/logo-avatar.png" alt=""><span>Bloomina</span></a>
+    <p class="demo-note" style="margin:0">Por @eubemju e @lud_asilva · Demonstração do design system · <a href="apresentacao/">Ver a apresentação</a></p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement, KEY = 'bloomina-theme';
+    var btns = document.querySelectorAll('[data-set-theme]');
+    function current() { return root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+    function sync() { var t = current(); btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setTheme === t)); }); }
+    try { var saved = localStorage.getItem(KEY); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+    btns.forEach(function (b) { b.addEventListener('click', function () { root.setAttribute('data-theme', b.dataset.setTheme); try { localStorage.setItem(KEY, b.dataset.setTheme); } catch (e) {} sync(); }); });
+    sync();
+
+    var chips = document.querySelectorAll('[data-filter]'), cards = document.querySelectorAll('#grid .bl-card');
+    chips.forEach(function (c) { c.addEventListener('click', function () {
+      var f = c.dataset.filter;
+      chips.forEach(function (x) { x.setAttribute('aria-pressed', String(x === c)); });
+      cards.forEach(function (card) { card.hidden = !(f === 'todas' || card.dataset.cat === f); });
+    }); });
+  })();
+</script>
+</body>
+</html>

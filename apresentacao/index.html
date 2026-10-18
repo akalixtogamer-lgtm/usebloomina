@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bloomina Design System</title>
+<meta name="description" content="Apresentação do design system da Bloomina: cores, tipografia, vidro, componentes, site e templates de foto e vídeo.">
+<link rel="icon" href="../assets/logo-avatar.png">
+<link rel="stylesheet" href="../assets/bloomina.css">
+<style>
+  html, body { height: 100%; }
+  body { overflow: hidden; background: #120d10; }
+  .stage { position: fixed; inset: 0; display: grid; place-items: center; }
+  .deck { position: relative; width: 1920px; height: 1080px; transform-origin: center center; }
+  .slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--pearl); color: var(--ink);
+    padding: 112px 128px; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility .45s; }
+  .slide.is-on { opacity: 1; visibility: visible; }
+  .slide.bl-aura::before { opacity: .78; }
+
+  /* tipografia de palco (1920px) */
+  .s-eyebrow { font: 500 22px/30px var(--font-sans); letter-spacing: .26em; text-transform: uppercase; color: var(--gold-ink); margin: 0; }
+  .s-h1 { font: 500 168px/0.92 var(--font-display); letter-spacing: -.015em; margin: 0; }
+  .s-h2 { font: 500 96px/1 var(--font-display); letter-spacing: -.01em; margin: 0; max-width: 16ch; }
+  .s-h3 { font: 600 44px/1.1 var(--font-display); margin: 0; }
+  .s-lead { font: 400 34px/1.45 var(--font-sans); color: var(--ink-muted); margin: 0; max-width: 40ch; }
+  .s-body { font: 400 26px/1.5 var(--font-sans); margin: 0; }
+  .s-small { font: 400 22px/1.45 var(--font-sans); color: var(--ink-muted); margin: 0; }
+  .s-quote { font: italic 400 48px/1.25 var(--font-display); color: var(--ink-muted); margin: 0; }
+  .s-head { display: grid; gap: 20px; margin-bottom: 64px; }
+  .s-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 32px; }
+  .s-foot span { font: 500 18px/24px var(--font-sans); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-muted); }
+  .glass { background: var(--glass-fill); -webkit-backdrop-filter: blur(24px) saturate(140%); backdrop-filter: blur(24px) saturate(140%); border: 1.5px solid var(--glass-stroke); box-shadow: var(--shadow-glass); border-radius: 48px; }
+  .glass--blush { background: var(--glass-tint); } .glass--strong { background: var(--glass-fill-strong); }
+  .row { display: flex; gap: 40px; }
+  .cols-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 40px; }
+
+  /* 1 capa */
+  .cover { justify-content: center; }
+  .cover__pane { padding: 80px 88px; max-width: 980px; display: grid; gap: 32px; }
+  .cover__logo { position: absolute; right: 150px; top: 50%; translate: 0 -50%; width: 480px; height: 480px; border-radius: 50%; box-shadow: var(--shadow-glass); }
+
+  /* 2 ponto de partida */
+  .start { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; flex: 1; }
+  .start__imgs { position: relative; height: 600px; }
+  .start__imgs img { position: absolute; border-radius: 40px; box-shadow: var(--shadow-glass); object-fit: cover; }
+  .start__a { width: 580px; height: 380px; left: 0; top: 0; }
+  .start__b { width: 460px; height: 340px; right: 0; bottom: 0; }
+  .start__list { display: grid; gap: 28px; }
+  .start__item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start; }
+  .dot { width: 56px; height: 56px; border-radius: 50%; border: 1.5px solid var(--glass-stroke); box-shadow: var(--shadow-jewel); }
+
+  /* 3 conceito */
+  .concept .card { padding: 56px; display: grid; gap: 20px; align-content: start; min-height: 520px; }
+  .concept .swatch { height: 180px; border-radius: 32px; margin-bottom: 12px; }
+
+  /* 4 cores */
+  .colors { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; flex: 1; }
+  .theme-card { border-radius: 48px; padding: 56px; display: grid; gap: 28px; align-content: start; background: var(--pearl); border: 1.5px solid var(--line); }
+  .theme-card[data-theme="dark"] { --pearl: #1a1317; --pearl-raised: #251b21; --linen: #3a2e2a; --line: #3a2a31; --blush: #4a2c36; --blush-deep: #6b3d4c; --orchid: #b58ad4; --orchid-ink: #d8bdea; --gold: #d9b26a; --gold-ink: #e3c483; --on-gold: #1a1317; --silver: #8f8a8c; --ink: #f6ece8; --ink-muted: #c4b0aa; background: var(--pearl); color: var(--ink); border-color: var(--line); }
+  .swatches { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 20px; }
+  .sw { display: grid; gap: 10px; }
+  .sw i { display: block; height: 120px; border-radius: 24px; border: 1.5px solid var(--line); }
+  .sw b { font: 500 18px/22px var(--font-sans); }
+  .sw small { font: 400 16px/20px var(--font-sans); color: var(--ink-muted); }
+
+  /* 5 tipo */
+  .type { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; flex: 1; }
+  .type__spec { display: grid; gap: 28px; align-content: start; }
+  .type__spec .label { font: 500 18px/24px var(--font-sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-muted); }
+  .type__big { font: 500 300px/0.9 var(--font-display); margin: 0; }
+  .type__big-sans { font: 400 220px/0.9 var(--font-sans); margin: 0; }
+
+  /* 6 vidro */
+  .glass-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; flex: 1; }
+  .layers { position: relative; height: 540px; }
+  .layer { position: absolute; width: 460px; height: 300px; border-radius: 48px; display: grid; align-content: start; padding: 28px 36px; }
+  .layer span { font: 500 20px/26px var(--font-sans); letter-spacing: .2em; text-transform: uppercase; }
+  .layer--1 { left: 0; top: 0; background: radial-gradient(60% 70% at 30% 40%, var(--blush-deep), transparent), radial-gradient(50% 60% at 80% 30%, var(--orchid), transparent), radial-gradient(50% 60% at 60% 90%, var(--gold), transparent), var(--blush); }
+  .layer--2 { left: 170px; top: 110px; }
+  .layer--3 { left: 340px; top: 220px; }
+  .steps { display: grid; gap: 26px; counter-reset: s; }
+  .steps li { list-style: none; display: grid; grid-template-columns: 64px 1fr; gap: 24px; align-items: baseline; }
+  .steps li::before { counter-increment: s; content: counter(s); font: 600 48px/1 var(--font-display); color: var(--gold-ink); }
+  .steps code { font: 500 22px/1 var(--font-sans); background: var(--blush); color: var(--ink); padding: 4px 10px; border-radius: 8px; }
+  .steps { padding: 0; margin: 0; }
+
+  /* 7 componentes */
+  .comps { display: grid; grid-template-columns: 1.25fr .75fr; gap: 56px; flex: 1; min-height: 0; }
+  .comps__board { padding: 44px 48px; display: grid; gap: 32px; align-content: start; }
+  .comps__label { font: 500 18px/24px var(--font-sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-muted); margin: 0 0 18px; }
+  .big .bl-btn { font-size: 22px; min-height: 76px; padding: 0 44px; }
+  .big .bl-badge { font-size: 18px; line-height: 24px; padding: 8px 16px; gap: 10px; }
+  .big .bl-badge::before { width: 12px; height: 12px; }
+  .big .bl-tag { padding: 22px 28px; min-width: 300px; border-radius: 24px; }
+  .big .bl-tag__name { font-size: 18px; line-height: 24px; } .big .bl-price { font-size: 44px; line-height: 50px; } .big .bl-tag__inst { font-size: 20px; line-height: 28px; }
+  .wrap-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+  .card-xl { width: 100%; max-width: 420px; justify-self: center; align-self: start; }
+  .card-xl .bl-card__name { font-size: 38px; line-height: 44px; } .card-xl .bl-price { font-size: 40px; line-height: 44px; } .card-xl .bl-body-s { font-size: 22px; line-height: 30px; }
+  .card-xl .bl-card__info { padding: 28px; left: 20px; right: 20px; bottom: 20px; border-radius: 24px; }
+  .card-xl .bl-card__badge { top: 20px; left: 20px; }
+
+  /* 8 site */
+  .site { display: grid; grid-template-columns: .8fr 1.2fr; gap: 72px; flex: 1; align-items: center; }
+  .browser { border-radius: 32px; overflow: hidden; border: 1.5px solid var(--line); box-shadow: 0 30px 80px rgba(51,37,31,.18); background: var(--pearl); }
+  .browser__bar { height: 56px; display: flex; align-items: center; gap: 10px; padding: 0 24px; background: var(--pearl-raised); border-bottom: 1.5px solid var(--line); }
+  .browser__bar i { width: 14px; height: 14px; border-radius: 50%; background: var(--line); }
+  .browser__bar span { margin-left: 16px; font: 400 18px/1 var(--font-sans); color: var(--ink-muted); }
+  .browser__body { padding: 32px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+  .browser__body .bl-card__name { font-size: 22px; }
+
+  /* 9/10 templates */
+  .tpl { display: flex; gap: 40px; align-items: flex-end; justify-content: center; flex: 1; }
+  .frame { position: relative; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 60px rgba(51,37,31,.18); flex: 0 0 auto; isolation: isolate; }
+  .frame--45 { width: 420px; height: 525px; } .frame--916 { width: 315px; height: 560px; }
+  .frame__art { position: absolute; inset: 0; display: grid; place-items: center; padding: 18% 14% 40%; background: radial-gradient(60% 50% at 50% 40%, var(--pearl-raised), transparent 75%), var(--linen); }
+  .frame__glass { position: absolute; left: 24px; right: 24px; bottom: 24px; padding: 24px 26px; border-radius: 28px; display: grid; gap: 8px; }
+  .frame .f-eb { font: 500 13px/18px var(--font-sans); letter-spacing: .24em; text-transform: uppercase; color: var(--gold-ink); margin: 0; }
+  .frame .f-t { font: 500 44px/1 var(--font-display); margin: 0; }
+  .frame .f-s { font: 400 16px/22px var(--font-sans); color: var(--ink-muted); margin: 0; }
+  .frame .f-p { font: 600 34px/1 var(--font-display); color: var(--gold-ink); }
+  .frame .bl-btn { min-height: 40px; font-size: 12px; padding: 0 18px; justify-self: start; margin-top: 6px; }
+  .frame .bl-badge { position: absolute; top: 24px; left: 24px; }
+  .frame .handle { position: absolute; top: 28px; right: 24px; font: 500 14px/1 var(--font-sans); letter-spacing: .06em; }
+  .safe { position: absolute; inset: 0; pointer-events: none; }
+  .safe::before, .safe::after { content: ""; position: absolute; left: 0; right: 0; background: rgba(156,111,184,.22); }
+  .safe::before { top: 0; height: 13%; } .safe::after { bottom: 0; height: 17.7%; }
+  .tpl-cap { display: grid; gap: 8px; margin-top: 18px; }
+  .tpl-cap b { font: 500 18px/24px var(--font-sans); letter-spacing: .18em; text-transform: uppercase; }
+  .tpl-cap small { font: 400 18px/24px var(--font-sans); color: var(--ink-muted); }
+
+  /* 11 voz */
+  .voice { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; flex: 1; }
+  .voice__col { padding: 56px; display: grid; gap: 24px; align-content: start; }
+  .voice__col h3 { display: flex; align-items: center; gap: 16px; }
+  .voice__col p { font: 400 30px/1.4 var(--font-sans); margin: 0; padding-bottom: 20px; border-bottom: 1.5px solid var(--line); }
+  .voice__col p:last-child { border: 0; }
+  .no p { color: var(--ink-muted); text-decoration: line-through; text-decoration-color: var(--blush-deep); }
+
+  /* 12 entregáveis */
+  .deliv { padding: 48px; display: grid; gap: 18px; align-content: start; }
+  .deliv ul { margin: 0; padding-left: 28px; display: grid; gap: 10px; }
+  .deliv li { font: 400 24px/1.4 var(--font-sans); }
+  .deliv li::marker { color: var(--gold); }
+
+  /* controles */
+  .ui { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; display: flex; align-items: center; gap: 8px; padding: 6px; border-radius: 999px;
+    background: rgba(26,19,23,.72); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.14); z-index: 10; }
+  .ui button, .ui a { min-width: 44px; min-height: 44px; border-radius: 999px; border: 0; background: transparent; color: #f6ece8; font: 500 13px/1 Jost, system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; display: grid; place-items: center; padding: 0 14px; text-decoration: none; }
+  .ui button:hover, .ui a:hover { background: rgba(255,255,255,.12); }
+  .ui .count { color: #c4b0aa; font: 500 13px/1 Jost, system-ui, sans-serif; letter-spacing: .12em; padding: 0 8px; font-variant-numeric: tabular-nums; }
+  .progress { position: fixed; left: 0; top: 0; height: 3px; background: #d9b26a; z-index: 11; transition: width .3s; }
+
+  @media print {
+    @page { size: 1920px 1080px; margin: 0; }
+    html, body { height: auto; overflow: visible; background: none; }
+    .stage { position: static; display: block; }
+    .deck { transform: none !important; width: 1920px; height: auto; }
+    .slide { position: relative; opacity: 1; visibility: visible; break-after: page; page-break-after: always; transition: none; }
+    .ui, .progress { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="stage">
+<div class="deck" id="deck">
+
+  <!-- 1 capa -->
+  <section class="slide cover bl-aura" aria-label="Capa">
+    <div class="cover__pane glass">
+      <p class="s-eyebrow">Design system · Curadoria de semijoias</p>
+      <h1 class="s-h1">Bloomina</h1>
+      <p class="s-quote">Floresça no seu estilo.</p>
+      <p class="s-small" style="color:var(--ink)">Identidade visual, componentes, site e templates de foto e vídeo.</p>
+    </div>
+    <img class="cover__logo" src="../assets/logo-avatar.png" alt="Logo Bloomina: lettering marrom com flores lilás sobre aquarela rosa">
+  </section>
+
+  <!-- 2 ponto de partida -->
+  <section class="slide" aria-label="Ponto de partida">
+    <div class="s-head"><p class="s-eyebrow">01 · O ponto de partida</p><h2 class="s-h2">A marca já tem alma</h2></div>
+    <div class="start">
+      <div class="start__imgs">
+        <img class="start__a" src="../assets/fotos/banca.jpg" alt="A banca da Bloomina com bustos de linho e cetim rosé">
+        <img class="start__b" src="../assets/fotos/colares-busto.jpg" alt="Colares dourados em camadas no busto">
+      </div>
+      <div class="start__list">
+        <div class="start__item"><i class="dot" style="background:var(--blush)"></i><div><h3 class="s-h3">Aquarela rosa</h3><p class="s-small">O fundo do logo e da placa vira a atmosfera de tudo.</p></div></div>
+        <div class="start__item"><i class="dot" style="background:var(--orchid)"></i><div><h3 class="s-h3">Flores lilás</h3><p class="s-small">As três flores do logo dão a cor de destaque.</p></div></div>
+        <div class="start__item"><i class="dot" style="background:var(--ink)"></i><div><h3 class="s-h3">Lettering marrom</h3><p class="s-small">O tom do logo é a cor do texto.</p></div></div>
+        <div class="start__item"><i class="dot" style="background:var(--gold)"></i><div><h3 class="s-h3">Ouro e linho</h3><p class="s-small">O banho 18k e os bustos da banca completam a paleta.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 conceito -->
+  <section class="slide concept bl-aura" aria-label="Conceito">
+    <div class="s-head"><p class="s-eyebrow">02 · O conceito</p><h2 class="s-h2">Aquarela, ouro e vidro</h2></div>
+    <div class="cols-3">
+      <article class="card glass"><div class="swatch" style="background:radial-gradient(60% 70% at 30% 40%, var(--blush-deep), transparent), radial-gradient(50% 60% at 80% 30%, var(--orchid), transparent), var(--blush)"></div><h3 class="s-h3">Aquarela</h3><p class="s-body">Manchas suaves de rosa e lilás no fundo. É o carinho da marca.</p></article>
+      <article class="card glass"><div class="swatch" style="background:linear-gradient(135deg,#fbeec4,#d8ab52 40%,#9a6d27 65%,#e8c97a)"></div><h3 class="s-h3">Ouro</h3><p class="s-body">A cor das peças e de toda ação: botão, preço, filete.</p></article>
+      <article class="card glass glass--strong"><div class="swatch glass" style="border-radius:32px;background:var(--glass-fill)"></div><h3 class="s-h3">Vidro</h3><p class="s-body">Painéis foscos e translúcidos, como uma vitrine. A camada de luxo.</p></article>
+    </div>
+  </section>
+
+  <!-- 4 cores -->
+  <section class="slide" aria-label="Cores">
+    <div class="s-head"><p class="s-eyebrow">03 · Cores</p><h2 class="s-h2">Dois temas, uma paleta</h2></div>
+    <div class="colors">
+      <div class="theme-card" data-theme="light">
+        <h3 class="s-h3">Pérola <span class="s-small">· feed do dia a dia</span></h3>
+        <div class="swatches">
+          <div class="sw"><i style="background:var(--pearl)"></i><b>pearl</b><small>Fundo</small></div>
+          <div class="sw"><i style="background:var(--blush)"></i><b>blush</b><small>Aquarela</small></div>
+          <div class="sw"><i style="background:var(--orchid)"></i><b>orchid</b><small>Flores</small></div>
+          <div class="sw"><i style="background:var(--gold)"></i><b>gold</b><small>Ação</small></div>
+          <div class="sw"><i style="background:var(--ink)"></i><b>ink</b><small>Texto</small></div>
+          <div class="sw"><i style="background:var(--linen)"></i><b>linen</b><small>Foto still</small></div>
+          <div class="sw"><i style="background:var(--blush-deep)"></i><b>blush-deep</b><small>Miolo</small></div>
+          <div class="sw"><i style="background:var(--orchid-ink)"></i><b>orchid-ink</b><small>Link, foco</small></div>
+          <div class="sw"><i style="background:var(--gold-ink)"></i><b>gold-ink</b><small>Preço</small></div>
+          <div class="sw"><i style="background:var(--silver)"></i><b>silver</b><small>Prata 925</small></div>
+        </div>
+      </div>
+      <div class="theme-card" data-theme="dark">
+        <h3 class="s-h3">Noite de gala <span class="s-small">· lançamentos</span></h3>
+        <div class="swatches">
+          <div class="sw"><i style="background:var(--pearl)"></i><b>pearl</b><small>Fundo</small></div>
+          <div class="sw"><i style="background:var(--blush)"></i><b>blush</b><small>Aquarela</small></div>
+          <div class="sw"><i style="background:var(--orchid)"></i><b>orchid</b><small>Flores</small></div>
+          <div class="sw"><i style="background:var(--gold)"></i><b>gold</b><small>Ação</small></div>
+          <div class="sw"><i style="background:var(--ink)"></i><b>ink</b><small>Texto</small></div>
+          <div class="sw"><i style="background:var(--linen)"></i><b>linen</b><small>Foto still</small></div>
+          <div class="sw"><i style="background:var(--blush-deep)"></i><b>blush-deep</b><small>Miolo</small></div>
+          <div class="sw"><i style="background:var(--orchid-ink)"></i><b>orchid-ink</b><small>Link, foco</small></div>
+          <div class="sw"><i style="background:var(--gold-ink)"></i><b>gold-ink</b><small>Preço</small></div>
+          <div class="sw"><i style="background:var(--silver)"></i><b>silver</b><small>Prata 925</small></div>
+        </div>
+      </div>
+    </div>
+    <p class="s-small" style="margin-top:32px">Todo texto passa no contraste mínimo de leitura (4,5:1) nos dois temas.</p>
+  </section>
+
+  <!-- 5 tipografia -->
+  <section class="slide" aria-label="Tipografia">
+    <div class="s-head"><p class="s-eyebrow">04 · Tipografia</p><h2 class="s-h2">Elegância que se lê</h2></div>
+    <div class="type">
+      <div class="type__spec">
+        <span class="label">Títulos, nomes de peça e preços</span>
+        <p class="type__big">Aa</p>
+        <h3 class="s-h3" style="font-size:64px">Cormorant Garamond</h3>
+        <p class="s-quote" style="font-size:40px">Peças escolhidas uma a uma.</p>
+        <p style="margin:0;font:600 64px/1 var(--font-display);color:var(--gold-ink)">R$ 87</p>
+      </div>
+      <div class="type__spec">
+        <span class="label">Rótulos, textos e botões</span>
+        <p class="type__big-sans">Aa</p>
+        <h3 style="margin:0;font:500 56px/1.1 var(--font-sans)">Jost</h3>
+        <p class="s-eyebrow" style="font-size:26px">Curadoria de semijoias</p>
+        <p class="s-body">Banho de ouro 18k com zircônias cravejadas. Leve, não pesa na orelha.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 vidro -->
+  <section class="slide bl-aura" aria-label="Vidro">
+    <div class="s-head"><p class="s-eyebrow">05 · Glassmorphism</p><h2 class="s-h2">A receita do vidro</h2></div>
+    <div class="glass-demo">
+      <div class="layers" aria-hidden="true">
+        <div class="layer layer--1"><span>1 · Algo atrás</span></div>
+        <div class="layer layer--2 glass glass--blush"><span>2 · Vidro rosé</span></div>
+        <div class="layer layer--3 glass glass--strong"><span>3 · Vidro forte + texto</span></div>
+      </div>
+      <ol class="steps">
+        <li><p class="s-body">Sempre uma foto ou a aquarela atrás. Vidro sobre fundo liso some.</p></li>
+        <li><p class="s-body">Preenchimento <code>glass-fill</code>, rosé <code>glass-tint</code> ou forte sobre foto.</p></li>
+        <li><p class="s-body">Desfoque de 20px, 36px em tela cheia.</p></li>
+        <li><p class="s-body">Aresta clara de 1px e sombra suave com brilho em cima.</p></li>
+        <li><p class="s-body">Texto em <code>ink</code>. No máximo dois vidros empilhados. Nunca cubra a joia.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7 componentes -->
+  <section class="slide bl-aura" aria-label="Componentes">
+    <div class="s-head"><p class="s-eyebrow">06 · Componentes</p><h2 class="s-h2">Peças que se encaixam</h2></div>
+    <div class="comps big">
+      <div class="comps__board glass">
+        <div><p class="comps__label">Botão · ouro, vidro, café</p><div class="wrap-row"><span class="bl-btn bl-btn--gold">Quero essa</span><span class="bl-btn bl-btn--glass">Ver a coleção</span><span class="bl-btn bl-btn--ink">WhatsApp</span></div></div>
+        <div><p class="comps__label">Selo de material</p><div class="wrap-row"><span class="bl-badge bl-badge--gold">Ouro 18k</span><span class="bl-badge bl-badge--silver">Prata 925</span><span class="bl-badge bl-badge--orchid">Novidade</span><span class="bl-badge bl-badge--blush">Últimas peças</span></div></div>
+        <div><p class="comps__label">Etiqueta de preço</p><div class="bl-tag"><span class="bl-tag__name">Anel Pétala</span><span class="bl-tag__rule" aria-hidden="true"></span><span class="bl-price">R$ 87</span><span class="bl-tag__inst">ou 3x de R$ 29</span></div></div>
+      </div>
+      <article class="bl-card card-xl">
+        <div class="bl-card__art"><img src="../assets/pecas/brinco-gota-orquidea.svg" alt="Brincos de gota com pedra lilás"></div>
+        <span class="bl-card__badge bl-badge bl-badge--orchid">Novidade</span>
+        <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Gota Orquídea</h3><span class="bl-price">R$ 79</span></div><p class="bl-body-s">Banho de ouro 18k · cristal lilás</p></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 8 site -->
+  <section class="slide" aria-label="Site">
+    <div class="site">
+      <div class="s-head" style="margin:0">
+        <p class="s-eyebrow">07 · Na prática</p>
+        <h2 class="s-h2">O site já usa o sistema</h2>
+        <p class="s-lead">Mesmas cores, mesmas fontes, mesmos componentes. Muda o tema e tudo acompanha.</p>
+        <p class="s-small">Peças e preços fictícios, para demonstração.</p>
+      </div>
+      <div class="browser">
+        <div class="browser__bar"><i></i><i></i><i></i><span>usebloomina · github.io</span></div>
+        <div class="browser__body bl-aura">
+          <article class="bl-card"><div class="bl-card__art"><img src="../assets/pecas/argola-aurora.svg" alt=""></div><span class="bl-card__badge bl-badge bl-badge--orchid">Novidade</span><div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Argola Aurora</h3><span class="bl-price">R$ 97</span></div></div></article>
+          <article class="bl-card"><div class="bl-card__art"><img src="../assets/pecas/colar-ponto-de-luz.svg" alt=""></div><span class="bl-card__badge bl-badge bl-badge--gold">Ouro 18k</span><div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Ponto de Luz</h3><span class="bl-price">R$ 127</span></div></div></article>
+          <article class="bl-card"><div class="bl-card__art"><img src="../assets/pecas/pulseira-riviera.svg" alt=""></div><span class="bl-card__badge bl-badge bl-badge--silver">Prata 925</span><div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Riviera Lua</h3><span class="bl-price">R$ 147</span></div></div></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 templates foto -->
+  <section class="slide bl-aura" aria-label="Templates de foto">
+    <div class="s-head" style="margin-bottom:40px"><p class="s-eyebrow">08 · Templates de foto</p><h2 class="s-h2">Feed e stories prontos</h2></div>
+    <div class="tpl">
+      <div>
+        <div class="frame frame--45"><div class="frame__art"><img src="../assets/pecas/argola-aurora.svg" alt=""></div><span class="bl-badge bl-badge--orchid">Novidade</span><span class="handle">@usebloomina.semijoias</span>
+          <div class="frame__glass glass glass--strong"><p class="f-eb">Banho de ouro 18k</p><p class="f-t">Argola Aurora</p><span class="f-p">R$ 97</span></div></div>
+        <div class="tpl-cap"><b>Post de produto</b><small>1080 × 1350 · foto + vidro com preço</small></div>
+      </div>
+      <div>
+        <div class="frame frame--45 bl-aura" style="background:var(--pearl)"><div style="position:absolute;inset:24px 24px 200px;border-radius:24px;overflow:hidden"><img src="../assets/fotos/banca.jpg" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="frame__glass glass"><p class="f-eb">Curadoria de semijoias</p><p class="f-t">Coleção Primavera</p><span class="bl-btn bl-btn--gold">Ver a coleção</span></div></div>
+        <div class="tpl-cap"><b>Post de coleção</b><small>1080 × 1350 · aquarela + moldura</small></div>
+      </div>
+      <div>
+        <div class="frame frame--916"><div class="frame__art" style="padding:16% 14% 60%"><img src="../assets/pecas/pulseira-riviera.svg" alt=""></div>
+          <div class="frame__glass glass glass--blush" style="bottom:120px"><p class="f-eb">Chegou na banca</p><p class="f-t" style="font-size:38px">Riviera Lua</p><p class="f-s" style="color:var(--ink)">Prata 925, antialérgica.</p><span class="bl-btn bl-btn--gold">Chama no WhatsApp</span></div></div>
+        <div class="tpl-cap"><b>Story de novidade</b><small>1080 × 1920 · respeita a zona segura</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 templates vídeo -->
+  <section class="slide" aria-label="Templates de vídeo">
+    <div class="s-head" style="margin-bottom:40px"><p class="s-eyebrow">09 · Templates de vídeo</p><h2 class="s-h2">Reels com começo, meio e fim</h2></div>
+    <div class="tpl" style="gap:32px">
+      <div>
+        <div class="frame frame--916"><div class="frame__art" style="padding:30% 14% 30%"><img src="../assets/pecas/argola-aurora.svg" alt=""></div><div class="safe"></div>
+          <div class="frame__glass glass" style="top:50%;bottom:auto;translate:0 -50%;text-align:center;justify-items:center"><p class="f-eb">3 jeitos de usar</p><p class="f-t" style="font-size:36px">Argolas douradas</p></div></div>
+        <div class="tpl-cap"><b>Capa</b><small>Título no centro</small></div>
+      </div>
+      <div>
+        <div class="frame frame--916"><div class="frame__art" style="padding:16% 14% 54%"><img src="../assets/pecas/colar-ponto-de-luz.svg" alt=""></div><div class="safe"></div>
+          <div class="frame__glass glass glass--blush" style="bottom:130px"><p class="f-eb">Nova coleção</p><p class="f-t" style="font-size:40px">Primavera</p></div></div>
+        <div class="tpl-cap"><b>Abertura</b><small>Push-in lento, 3 a 5 s</small></div>
+      </div>
+      <div>
+        <div class="frame frame--916"><div class="frame__art" style="padding:12% 14% 58%"><img src="../assets/pecas/anel-petala.svg" alt=""></div><div class="safe"></div>
+          <div class="bl-tag" style="position:absolute;left:24px;top:330px"><span class="bl-tag__name">Anel Pétala</span><span class="bl-tag__rule"></span><span class="bl-price">R$ 87</span></div>
+          <div class="frame__glass glass glass--strong" style="bottom:120px;padding:14px 18px"><p class="f-s" style="color:var(--ink);text-align:center">Leve e combina com tudo.</p></div></div>
+        <div class="tpl-cap"><b>Preço e legenda</b><small>Etiqueta ao lado da peça</small></div>
+      </div>
+      <div>
+        <div class="frame frame--916 bl-aura" style="background:var(--pearl)"><div class="safe"></div>
+          <div class="frame__glass glass" style="top:50%;bottom:auto;translate:0 -50%;text-align:center;justify-items:center"><p class="f-t">Bloomina</p><p class="f-eb">Floresça no seu estilo</p><span class="bl-btn bl-btn--gold" style="justify-self:center">WhatsApp</span><p class="f-s" style="color:var(--ink)">@usebloomina.semijoias</p></div></div>
+        <div class="tpl-cap"><b>Encerramento</b><small>Contato e chamada</small></div>
+      </div>
+    </div>
+    <p class="s-small" style="margin-top:12px">Faixas lilás = área que a interface do Instagram cobre (250 px em cima, 340 px embaixo).</p>
+  </section>
+
+  <!-- 11 voz -->
+  <section class="slide bl-aura" aria-label="Voz da marca">
+    <div class="s-head"><p class="s-eyebrow">10 · Voz</p><h2 class="s-h2">Como a Bloomina fala</h2></div>
+    <div class="voice">
+      <div class="voice__col glass">
+        <h3 class="s-h3"><span class="bl-badge bl-badge--gold" style="font-size:16px">Assim</span></h3>
+        <p>Essa argola foi feita pra você usar todo dia.</p>
+        <p>Semijoia com banho de ouro 18k.</p>
+        <p>Chama no WhatsApp que a gente separa.</p>
+        <p>R$ 87 · ou 3x de R$ 29</p>
+      </div>
+      <div class="voice__col glass glass--strong no">
+        <h3 class="s-h3"><span class="bl-badge bl-badge--blush" style="font-size:16px">Assim não</span></h3>
+        <p>COMPRE JÁ!!! Promoção imperdível!!!</p>
+        <p>Bijuteria dourada.</p>
+        <p>Clique aqui para adquirir o produto.</p>
+        <p>Apenas R$87,00!!!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 entregáveis -->
+  <section class="slide" aria-label="Entregáveis">
+    <div class="s-head"><p class="s-eyebrow">11 · O que você recebe</p><h2 class="s-h2">Tudo num lugar só</h2></div>
+    <div class="cols-3">
+      <article class="deliv glass" style="background:var(--blush)"><h3 class="s-h3">Figma</h3><ul><li>Cores em dois temas</li><li>Estilos de texto e de vidro</li><li>Botão, selo, etiqueta, painel</li><li>Templates de foto e vídeo</li></ul></article>
+      <article class="deliv glass" style="background:var(--linen)"><h3 class="s-h3">Site</h3><ul><li>Vitrine com filtro por categoria</li><li>Botão de pedido pelo WhatsApp</li><li>Tema Pérola e Noite</li><li>Funciona no celular</li></ul></article>
+      <article class="deliv glass" style="background:var(--pearl-raised)"><h3 class="s-h3">Próximos passos</h3><ul><li>Fotos reais das peças</li><li>Logo em vetor (SVG)</li><li>Template de carrossel</li><li>Catálogo com preços reais</li></ul></article>
+    </div>
+  </section>
+
+  <!-- 13 fim -->
+  <section class="slide cover bl-aura" aria-label="Encerramento">
+    <div class="cover__pane glass" style="max-width:1100px">
+      <p class="s-eyebrow">Obrigado</p>
+      <h2 class="s-h1" style="font-size:140px">Vem brilhar com a gente</h2>
+      <p class="s-body">@usebloomina.semijoias · WhatsApp 21 98126-4144</p>
+    </div>
+    <img class="cover__logo" src="../assets/logo-avatar.png" alt="">
+  </section>
+
+</div>
+</div>
+
+<nav class="ui" aria-label="Navegação dos slides">
+  <button type="button" id="prev" aria-label="Slide anterior">‹</button>
+  <span class="count" id="count">1 / 13</span>
+  <button type="button" id="next" aria-label="Próximo slide">›</button>
+  <a href="bloomina-apresentacao.pdf" download>PDF</a>
+  <a href="../">Site</a>
+</nav>
+
+<script>
+  (function () {
+    var deck = document.getElementById('deck'), slides = deck.querySelectorAll('.slide');
+    var count = document.getElementById('count'), progress = document.getElementById('progress'), i = 0;
+    function fit() { var s = Math.min(innerWidth / 1920, innerHeight / 1080); deck.style.transform = 'scale(' + s + ')'; }
+    function go(n) {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach(function (s, k) { s.classList.toggle('is-on', k === i); s.setAttribute('aria-hidden', String(k !== i)); });
+      count.textContent = (i + 1) + ' / ' + slides.length;
+      progress.style.width = ((i + 1) / slides.length * 100) + '%';
+      if (history.replaceState) history.replaceState(null, '', '#' + (i + 1));
+    }
+    document.getElementById('prev').onclick = function () { go(i - 1); };
+    document.getElementById('next').onclick = function () { go(i + 1); };
+    addEventListener('keydown', function (e) {
+      if (['ArrowRight', 'PageDown', ' '].indexOf(e.key) > -1) { e.preventDefault(); go(i + 1); }
+      if (['ArrowLeft', 'PageUp'].indexOf(e.key) > -1) { e.preventDefault(); go(i - 1); }
+      if (e.key === 'Home') go(0); if (e.key === 'End') go(slides.length - 1);
+    });
+    var x0 = null;
+    addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1)); x0 = null; });
+    addEventListener('resize', fit); fit();
+    var start = parseInt((location.hash || '').slice(1), 10); go(isNaN(start) ? 0 : start - 1);
+  })();
+</script>
+</body>
+</html>
