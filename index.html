@@ -3,250 +3,371 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Bloomina Semijoias</title>
-<meta name="description" content="Bloomina, curadoria de semijoias. Floresça no seu estilo. Página demonstrativa do design system com peças fictícias.">
-<link rel="icon" href="assets/logo-avatar.png">
+<title>Bloomina · Curadoria de semijoias</title>
+<meta name="description" content="Bloomina é uma curadoria de semijoias por @eubemju e @lud_asilva. Veja as peças, escolha a sua e peça pelo WhatsApp.">
+<link rel="canonical" href="https://akalixtogamer-lgtm.github.io/usebloomina/">
+<meta name="theme-color" content="#fbf6f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1317" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Bloomina">
+<meta property="og:title" content="Bloomina · Curadoria de semijoias">
+<meta property="og:description" content="Floresça no seu estilo. Veja as peças e peça pelo WhatsApp.">
+<meta property="og:url" content="https://akalixtogamer-lgtm.github.io/usebloomina/">
+<meta property="og:image" content="https://akalixtogamer-lgtm.github.io/usebloomina/assets/og-bloomina.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo-96.png" type="image/png">
+<link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/bloomina.css">
-<style>
-  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px)); }
-
-  /* topo */
-  .top { position: sticky; top: 0; z-index: 20; padding-top: env(safe-area-inset-top, 0px); }
-  .top__bar { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-3); padding: 8px 8px 8px 10px; border-radius: var(--radius-pill); }
-  .brand { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; color: var(--ink); }
-  .brand img { width: 44px; height: 44px; border-radius: 50%; }
-  .brand span { font: 500 26px/1 var(--font-display); }
-  .nav { display: flex; gap: var(--space-6); margin-left: auto; }
-  .nav a { color: var(--ink); text-decoration: none; font: 500 12px/16px var(--font-sans); letter-spacing: .2em; text-transform: uppercase; }
-  .nav a:hover { color: var(--gold-ink); }
-  .theme { display: inline-flex; padding: 3px; border-radius: var(--radius-pill); background: var(--glass-fill); border: 1px solid var(--glass-stroke); }
-  .theme button { font: 500 11px/16px var(--font-sans); letter-spacing: .14em; text-transform: uppercase; border: 0; background: transparent; color: var(--ink-muted); padding: 8px 12px; border-radius: var(--radius-pill); cursor: pointer; min-height: 36px; }
-  .theme button[aria-pressed="true"] { background: var(--ink); color: var(--pearl); }
-  @media (max-width: 860px) { .nav { display: none; } .theme { margin-left: auto; } .top__wa { display: none; } }
-
-  /* hero */
-  .hero { padding-block: clamp(48px, 8vw, 96px) clamp(56px, 8vw, 112px); }
-  .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
-  .hero__copy { display: grid; gap: var(--space-6); min-width: 0; }
-  .hero__copy p.lead { font-size: 18px; line-height: 30px; color: var(--ink-muted); max-width: 46ch; margin: 0; }
-  .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
-  .hero__stage { position: relative; aspect-ratio: 1 / 1.05; }
-  .hero__pane { position: absolute; inset: 6% 4% 10% 8%; display: grid; place-items: center; padding: 12%; }
-  .hero__pane img { width: 100%; animation: float 7s ease-in-out infinite; }
-  .hero__tag { position: absolute; right: 0; bottom: 4%; }
-  .hero__badge { position: absolute; left: 0; top: 2%; }
-  @keyframes float { 50% { transform: translateY(-10px) rotate(-1.5deg); } }
-  @media (max-width: 860px) { .hero__grid { grid-template-columns: 1fr; } .hero__stage { max-width: 460px; width: 100%; justify-self: center; } }
-
-  /* destaques */
-  section { padding-block: clamp(48px, 7vw, 88px); }
-  .head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-6); margin-bottom: var(--space-8); }
-  .head > div { display: grid; gap: var(--space-3); }
-  .chips { display: flex; gap: var(--space-4); overflow-x: auto; padding: 6px 4px 12px; scrollbar-width: none; }
-  .chip { flex: 0 0 auto; display: grid; justify-items: center; gap: var(--space-2); background: none; border: 0; cursor: pointer; color: var(--ink); font: 500 12px/16px var(--font-sans); letter-spacing: .14em; text-transform: uppercase; padding: 0; }
-  .chip__ring { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; padding: 3px; border: 2px solid var(--line); transition: border-color .2s; }
-  .chip__in { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; overflow: hidden; }
-  .chip__in img { width: 70%; }
-  .chip[aria-pressed="true"] .chip__ring { border-color: var(--gold); }
-  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
-  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
-  .bl-card[hidden] { display: none; }
-  .bl-card__cta { margin-top: var(--space-2); font: 500 12px/16px var(--font-sans); letter-spacing: .16em; text-transform: uppercase; color: var(--orchid-ink); text-decoration: none; }
-
-  /* banca */
-  .banca { display: grid; grid-template-columns: 1.2fr .8fr; gap: var(--space-8); align-items: center; }
-  .banca__photo { position: relative; border-radius: var(--radius-lg); overflow: hidden; }
-  .banca__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  .banca__cap { position: absolute; left: var(--space-4); bottom: var(--space-4); right: var(--space-4); padding: var(--space-4) var(--space-6); max-width: 380px; }
-  .banca__copy { display: grid; gap: var(--space-4); }
-  @media (max-width: 860px) { .banca { grid-template-columns: 1fr; } }
-
-  /* cuidados */
-  .care { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
-  .care article { padding: var(--space-8); display: grid; gap: var(--space-3); align-content: start; }
-  .care svg { width: 36px; height: 36px; stroke: var(--orchid-ink); }
-  @media (max-width: 860px) { .care { grid-template-columns: 1fr; } }
-
-  /* contato */
-  .cta { text-align: center; padding: clamp(40px, 6vw, 72px) var(--space-6); display: grid; gap: var(--space-4); justify-items: center; }
-  .cta .bl-display-l { max-width: 18ch; }
-  .contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); }
-  footer { padding-block: var(--space-12) calc(var(--space-12) + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: space-between; align-items: center; }
-  .demo-note { font: 400 13px/20px var(--font-sans); color: var(--ink-muted); }
-</style>
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem('bloomina-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Bloomina", "url": "https://akalixtogamer-lgtm.github.io/usebloomina/", "logo": "https://akalixtogamer-lgtm.github.io/usebloomina/assets/logo-avatar.png", "sameAs": ["https://www.instagram.com/usebloomina.semijoias/"], "contactPoint": {"@type": "ContactPoint", "telephone": "+55-21-98126-4144", "contactType": "customer service", "availableLanguage": "Portuguese"}}</script>
 </head>
 <body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
-<header class="top">
-  <div class="wrap">
-    <div class="top__bar bl-glass">
-      <a class="brand" href="#inicio" aria-label="Bloomina, início"><img src="assets/logo-avatar.png" alt=""><span>Bloomina</span></a>
-      <nav class="nav" aria-label="Seções">
-        <a href="#pecas">Peças</a><a href="#banca">A banca</a><a href="#cuidados">Cuidados</a><a href="#contato">Contato</a>
-      </nav>
-      <div class="theme" role="group" aria-label="Tema">
-        <button type="button" data-set-theme="light" aria-pressed="false">Pérola</button>
-        <button type="button" data-set-theme="dark" aria-pressed="false">Noite</button>
-      </div>
-      <a class="bl-btn bl-btn--gold top__wa" href="https://wa.me/5521981264144" target="_blank" rel="noopener">WhatsApp</a>
+<aside class="announce" aria-label="Aviso de atendimento">
+  <div class="container"><p style="margin:0">Atendimento e pedidos pelo WhatsApp: <a href="https://wa.me/5521981264144" target="_blank" rel="noopener">21 98126-4144</a></p></div>
+</aside>
+
+<header class="header" id="topo">
+  <div class="container header__bar">
+    <a class="brand" href="./" aria-label="Bloomina, página inicial"><img src="assets/logo-96.png" alt="" width="44" height="44"><span>Bloomina</span></a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#categorias">Categorias</a>
+      <a href="#pecas">Peças</a>
+      <a href="#curadoria">A curadoria</a>
+      <a href="#como-comprar">Como comprar</a>
+      <a href="#cuidados">Cuidados</a>
+    </nav>
+    <div class="actions">
+      <button type="button" class="icon-btn" data-open-search aria-label="Buscar peças">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false"><span data-theme-label>Tema escuro</span></button>
+      <a class="bl-btn bl-btn--gold wa-desktop" href="https://wa.me/5521981264144" target="_blank" rel="noopener">WhatsApp<span class="visually-hidden"> (abre em nova aba)</span></a>
+      <button type="button" class="icon-btn menu-btn" aria-expanded="false" aria-controls="menu-movel" data-menu-btn>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" data-icon-open/><path d="M6 6l12 12M18 6L6 18" data-icon-close hidden/></svg>
+        <span class="visually-hidden" data-menu-label>Abrir menu</span>
+      </button>
     </div>
+  </div>
+  <div class="mobile-menu" id="menu-movel" hidden>
+    <nav class="container" aria-label="Menu">
+      <ul>
+        <li><a href="#categorias">Categorias</a></li>
+        <li><a href="#pecas">Peças</a></li>
+        <li><a href="#curadoria">A curadoria</a></li>
+        <li><a href="#como-comprar">Como comprar</a></li>
+        <li><a href="#cuidados">Cuidados</a></li>
+      </ul>
+      <div class="menu-foot">
+        <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144" target="_blank" rel="noopener">Falar no WhatsApp<span class="visually-hidden"> (abre em nova aba)</span></a>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false"><span data-theme-label>Tema escuro</span></button>
+      </div>
+    </nav>
   </div>
 </header>
 
-<main id="inicio">
-  <div class="hero bl-aura">
-    <div class="wrap hero__grid">
+<main id="conteudo" tabindex="-1">
+  <section class="hero" aria-labelledby="hero-titulo">
+    <div class="container hero__grid">
       <div class="hero__copy">
-        <p class="bl-eyebrow">Curadoria de semijoias</p>
-        <h1 class="bl-display-xl">Floresça no seu estilo</h1>
-        <p class="lead">Semijoias em banho de ouro 18k e prata 925, escolhidas uma a uma para acompanhar você do dia à noite.</p>
+        <p class="eyebrow">Curadoria de semijoias</p>
+        <h1 class="h1" id="hero-titulo">Floresça no seu estilo</h1>
+        <p class="lead">Semijoias escolhidas para acompanhar o seu jeito, do dia a dia às ocasiões especiais.</p>
         <div class="hero__ctas">
           <a class="bl-btn bl-btn--gold" href="#pecas">Ver as peças</a>
-          <a class="bl-btn bl-btn--glass" href="https://wa.me/5521981264144" target="_blank" rel="noopener">Chama no WhatsApp</a>
+          <a class="bl-btn bl-btn--line" href="https://wa.me/5521981264144" target="_blank" rel="noopener">Falar no WhatsApp<span class="visually-hidden"> (abre em nova aba)</span></a>
         </div>
+        <p class="hero__by">Por <a href="https://www.instagram.com/eubemju/" target="_blank" rel="noopener">@eubemju</a> e <a href="https://www.instagram.com/lud_asilva/" target="_blank" rel="noopener">@lud_asilva</a></p>
       </div>
-      <div class="hero__stage" aria-label="Peça em destaque: argolas Aurora">
-        <div class="hero__pane bl-glass bl-glass--blush"><img src="assets/pecas/argola-aurora.svg" alt="Argolas trançadas douradas"></div>
-        <span class="hero__badge bl-badge bl-badge--orchid">Novidade</span>
-        <div class="hero__tag bl-tag">
-          <span class="bl-tag__name">Argola Aurora</span><span class="bl-tag__rule" aria-hidden="true"></span>
-          <span class="bl-price">R$ 97</span><span class="bl-tag__inst">ou 3x de R$ 32,33</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section id="pecas">
-    <div class="wrap">
-      <div class="head">
-        <div>
-          <p class="bl-eyebrow">Coleção Primavera</p>
-          <h2 class="bl-display-l">Peças da semana</h2>
-        </div>
-        <p class="bl-body-s">Toque numa categoria para filtrar.</p>
-      </div>
-      <div class="chips" role="group" aria-label="Categorias">
-        <button class="chip" type="button" data-filter="todas" aria-pressed="true"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/anel-petala.svg" alt=""></span></span>Todas</button>
-        <button class="chip" type="button" data-filter="colares" aria-pressed="false"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/colar-ponto-de-luz.svg" alt=""></span></span>Colares</button>
-        <button class="chip" type="button" data-filter="brincos" aria-pressed="false"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/brinco-gota-orquidea.svg" alt=""></span></span>Brincos</button>
-        <button class="chip" type="button" data-filter="pulseiras" aria-pressed="false"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/pulseira-riviera.svg" alt=""></span></span>Pulseiras</button>
-        <button class="chip" type="button" data-filter="aneis" aria-pressed="false"><span class="chip__ring"><span class="chip__in bl-glass bl-glass--blush"><img src="assets/pecas/anel-petala.svg" alt=""></span></span>Anéis</button>
-      </div>
-      <div class="grid" id="grid">
-        <article class="bl-card" data-cat="brincos">
-          <div class="bl-card__art"><img src="assets/pecas/argola-aurora.svg" alt="Argolas trançadas douradas"></div>
-          <span class="bl-card__badge bl-badge bl-badge--orchid">Novidade</span>
-          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Argola Aurora</h3><span class="bl-price">R$ 97</span></div><p class="bl-body-s">Banho de ouro 18k · trançada</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20a%20Argola%20Aurora" target="_blank" rel="noopener">Quero essa →</a></div>
-        </article>
-        <article class="bl-card" data-cat="colares">
-          <div class="bl-card__art"><img src="assets/pecas/colar-ponto-de-luz.svg" alt="Colar dourado com pingente de zircônia"></div>
-          <span class="bl-card__badge bl-badge bl-badge--gold">Ouro 18k</span>
-          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Colar Ponto de Luz</h3><span class="bl-price">R$ 127</span></div><p class="bl-body-s">Banho de ouro 18k · zircônia</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20o%20Colar%20Ponto%20de%20Luz" target="_blank" rel="noopener">Quero essa →</a></div>
-        </article>
-        <article class="bl-card" data-cat="aneis">
-          <div class="bl-card__art"><img src="assets/pecas/anel-petala.svg" alt="Anel dourado com flor de pedras lilás"></div>
-          <span class="bl-card__badge bl-badge bl-badge--blush">Últimas peças</span>
-          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Anel Pétala</h3><span class="bl-price">R$ 87</span></div><p class="bl-body-s">Banho de ouro 18k · cristais lilás</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20o%20Anel%20P%C3%A9tala" target="_blank" rel="noopener">Quero essa →</a></div>
-        </article>
-        <article class="bl-card" data-cat="brincos">
-          <div class="bl-card__art"><img src="assets/pecas/brinco-gota-orquidea.svg" alt="Brincos de gota com pedra lilás"></div>
-          <span class="bl-card__badge bl-badge bl-badge--orchid">Novidade</span>
-          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Gota Orquídea</h3><span class="bl-price">R$ 79</span></div><p class="bl-body-s">Banho de ouro 18k · cristal lilás</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20o%20brinco%20Gota%20Orqu%C3%ADdea" target="_blank" rel="noopener">Quero essa →</a></div>
-        </article>
-        <article class="bl-card" data-cat="pulseiras">
-          <div class="bl-card__art"><img src="assets/pecas/pulseira-riviera.svg" alt="Pulseira riviera de prata com zircônias"></div>
-          <span class="bl-card__badge bl-badge bl-badge--silver">Prata 925</span>
-          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Riviera Lua</h3><span class="bl-price">R$ 147</span></div><p class="bl-body-s">Prata 925 · zircônias · antialérgica</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20a%20pulseira%20Riviera%20Lua" target="_blank" rel="noopener">Quero essa →</a></div>
-        </article>
-        <article class="bl-card" data-cat="brincos">
-          <div class="bl-card__art"><img src="assets/pecas/ear-cuff-lirio.svg" alt="Ear cuff dourado cravejado"></div>
-          <span class="bl-card__badge bl-badge bl-badge--gold">Ouro 18k</span>
-          <div class="bl-card__info"><div class="bl-card__row"><h3 class="bl-card__name">Ear Cuff Lírio</h3><span class="bl-price">R$ 57</span></div><p class="bl-body-s">Banho de ouro 18k · cravejado</p><a class="bl-card__cta" href="https://wa.me/5521981264144?text=Oi!%20Quero%20o%20Ear%20Cuff%20L%C3%ADrio" target="_blank" rel="noopener">Quero essa →</a></div>
-        </article>
-      </div>
-      <p class="demo-note" style="margin-top: var(--space-6)">Peças, nomes e preços desta página são fictícios, criados para demonstrar o design system.</p>
-    </div>
-  </section>
-
-  <section id="banca" class="bl-aura">
-    <div class="wrap banca">
-      <figure class="banca__photo" style="margin:0">
-        <img src="assets/fotos/banca.jpg" alt="A banca da Bloomina: cetim rosé, bustos de linho e semijoias douradas e prateadas">
-        <figcaption class="banca__cap bl-glass bl-glass--strong"><p class="bl-eyebrow">Da banca para você</p><p class="bl-body-s" style="color:var(--ink)">Cada peça passa pelas nossas mãos antes de chegar às suas.</p></figcaption>
+      <figure class="hero__visual">
+        <div class="hero__frame"><img src="assets/pecas/colar-tres-flores.svg" alt="Colar dourado fino com três flores de cristais lilás" width="400" height="400" fetchpriority="high"></div>
+        <figcaption class="hero__caption"><span>Colar Três Flores</span><span>Ilustração de peça demonstrativa</span></figcaption>
       </figure>
-      <div class="banca__copy">
-        <p class="bl-eyebrow">A curadoria</p>
-        <h2 class="bl-display-l">Escolhidas uma a uma</h2>
-        <p style="margin:0; max-width:46ch">Curadoria é escolher com cuidado. Testamos o banho, o fecho e o conforto de cada peça antes de colocar na banca. Se não usaríamos todo dia, não entra.</p>
-        <p class="bl-quote">“Vem brilhar com a gente.”</p>
-      </div>
     </div>
   </section>
 
-  <section id="cuidados">
-    <div class="wrap">
-      <div class="head"><div><p class="bl-eyebrow">Para durar mais</p><h2 class="bl-display-l">Cuidados com a sua peça</h2></div></div>
-      <div class="care">
-        <article class="bl-glass">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>
-          <h3 class="bl-title">Guarde separada</h3>
-          <p class="bl-body-s">Use o saquinho que vai com a peça. Assim uma não risca a outra.</p>
-        </article>
-        <article class="bl-glass">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/><path d="M4 4l16 16"/></svg>
-          <h3 class="bl-title">Longe de água e perfume</h3>
-          <p class="bl-body-s">Tire antes do banho, da piscina e da academia. Perfume e creme primeiro, joia depois.</p>
-        </article>
-        <article class="bl-glass">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.2 5.4L20 9l-4.4 3.8L17 19l-5-3-5 3 1.4-6.2L4 9l5.8-.6z"/></svg>
-          <h3 class="bl-title">Brilho com flanela</h3>
-          <p class="bl-body-s">Passe uma flanela macia e seca depois de usar. Nada de produto abrasivo.</p>
-        </article>
+  <section class="section section--alt" id="categorias" aria-labelledby="cat-titulo">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Categorias</p>
+        <h2 class="h2" id="cat-titulo">Comece pelo que você procura</h2>
       </div>
+      <ul class="cats" role="list" style="list-style:none;margin:0;padding:0">
+        <li><a class="cat" href="?categoria=brincos#pecas" data-cat-link="brincos">
+          <span class="cat__img"><img src="assets/pecas/brinco-gota-orquidea.svg" alt="" width="400" height="400" decoding="async"></span>
+          <span class="cat__label"><strong>Brincos</strong><span>3 peças</span></span>
+        </a></li>
+        <li><a class="cat" href="?categoria=colares#pecas" data-cat-link="colares">
+          <span class="cat__img"><img src="assets/pecas/colar-tres-flores.svg" alt="" width="400" height="400" decoding="async"></span>
+          <span class="cat__label"><strong>Colares</strong><span>2 peças</span></span>
+        </a></li>
+        <li><a class="cat" href="?categoria=pulseiras#pecas" data-cat-link="pulseiras">
+          <span class="cat__img"><img src="assets/pecas/pulseira-elo.svg" alt="" width="400" height="400" decoding="async"></span>
+          <span class="cat__label"><strong>Pulseiras</strong><span>2 peças</span></span>
+        </a></li>
+        <li><a class="cat" href="?categoria=aneis#pecas" data-cat-link="aneis">
+          <span class="cat__img"><img src="assets/pecas/anel-petala.svg" alt="" width="400" height="400" decoding="async"></span>
+          <span class="cat__label"><strong>Anéis</strong><span>1 peça</span></span>
+        </a></li>
+      </ul>
     </div>
   </section>
 
-  <section id="contato">
-    <div class="wrap">
-      <div class="cta bl-glass bl-glass--blush bl-aura">
-        <p class="bl-eyebrow">Atendimento</p>
-        <h2 class="bl-display-l">Viu uma peça que é a sua cara?</h2>
-        <p class="bl-body-s" style="color:var(--ink)">Manda uma mensagem que a gente separa para você.</p>
-        <div class="contacts">
-          <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144" target="_blank" rel="noopener">WhatsApp 21 98126-4144</a>
-          <a class="bl-btn bl-btn--glass" href="https://www.instagram.com/usebloomina.semijoias/" target="_blank" rel="noopener">@usebloomina.semijoias</a>
+  <section class="section" id="pecas" aria-labelledby="pecas-titulo">
+    <div class="container">
+      <div class="shop__head">
+        <div class="section__head" style="margin:0">
+          <p class="eyebrow">Vitrine</p>
+          <h2 class="h2" id="pecas-titulo">Peças</h2>
         </div>
       </div>
+      <p class="bl-status bl-status--warning demo-note" role="note"><strong>Vitrine de demonstração.</strong>&nbsp;As peças, nomes e preços abaixo são fictícios, criados para apresentar o design system. O catálogo real entra aqui assim que a Bloomina enviar os dados.</p>
+      <form class="toolbar" role="search" aria-label="Buscar e filtrar peças" data-toolbar>
+        <div class="bl-field toolbar__search">
+          <label class="bl-field__label" for="busca">Buscar peça</label>
+          <input class="bl-input" id="busca" name="busca" type="search" placeholder="Ex.: argola, colar, lilás" autocomplete="off">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        </div>
+        <div class="toolbar__row">
+          <div class="bl-field">
+            <label class="bl-field__label" for="ordem">Ordenar por</label>
+            <select class="bl-select" id="ordem" name="ordem">
+              <option value="destaque">Destaques</option>
+              <option value="menor">Menor preço</option>
+              <option value="maior">Maior preço</option>
+              <option value="nome">Nome (A–Z)</option>
+            </select>
+          </div>
+        </div>
+        <fieldset class="chips">
+          <legend class="bl-field__label">Categoria</legend>
+          <button type="button" class="chip" data-filter="todas" aria-pressed="true">Todas</button>
+          <button type="button" class="chip" data-filter="brincos" aria-pressed="false">Brincos</button>
+          <button type="button" class="chip" data-filter="colares" aria-pressed="false">Colares</button>
+          <button type="button" class="chip" data-filter="pulseiras" aria-pressed="false">Pulseiras</button>
+          <button type="button" class="chip" data-filter="aneis" aria-pressed="false">Anéis</button>
+        </fieldset>
+      </form>
+      <div class="results"><p style="margin:0" role="status" aria-live="polite" data-count>8 peças</p><button type="button" class="link" style="background:none;border:0;cursor:pointer;min-height:44px;font:inherit" data-clear hidden>Limpar filtros</button></div>
+      <ul class="grid" role="list" data-grid>
+        <li class="product" data-id="colar-tres-flores" data-cat="colares" data-price="109" data-name="Colar Três Flores" data-mat="Dourado · cristais lilás" data-img="assets/pecas/colar-tres-flores.svg" data-alt="Colar dourado fino com três flores de cristais lilás" data-desc="Corrente fina com três flores de cristais lilás, inspiradas nas flores da marca. Fica bonita sozinha ou com outros colares." data-order="0">
+          <div class="product__media"><img src="assets/pecas/colar-tres-flores.svg" alt="Colar dourado fino com três flores de cristais lilás" width="400" height="400" decoding="async"></div>
+          <div class="product__body">
+            <p class="product__mat">Dourado · cristais lilás</p>
+            <h3 class="product__name">Colar Três Flores</h3>
+            <p class="product__price"><span class="visually-hidden">Preço: </span>R$ 109</p>
+          </div>
+          <div class="product__actions">
+            <button type="button" class="bl-btn bl-btn--line" data-detail="colar-tres-flores" aria-haspopup="dialog">Detalhes<span class="visually-hidden"> de Colar Três Flores</span></button>
+            <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144?text=Ol%C3%A1%21%20Vi%20no%20site%20a%20pe%C3%A7a%20Colar%20Tr%C3%AAs%20Flores%20%28R%24%20109%29%20e%20queria%20saber%20mais." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 1.8.8c-.3 1.2-1.3 1.9-2.5 1.7C10.8 14.8 9.2 13.2 8.7 10.2 8.5 9 9.2 8 10.4 7.7l.8 1.8z"/></svg><span class="lbl">Pedir</span><span class="visually-hidden"> Colar Três Flores pelo WhatsApp (abre em nova aba)</span></a>
+          </div>
+        </li>
+        <li class="product" data-id="argola-aurora" data-cat="brincos" data-price="97" data-name="Argola Aurora" data-mat="Dourada · trançada" data-img="assets/pecas/argola-aurora.svg" data-alt="Par de argolas douradas com textura trançada" data-desc="Argola média com textura trançada que pega a luz de todos os lados. Combina com o dia a dia e com produções de noite." data-order="1">
+          <div class="product__media"><img src="assets/pecas/argola-aurora.svg" alt="Par de argolas douradas com textura trançada" width="400" height="400" decoding="async"></div>
+          <div class="product__body">
+            <p class="product__mat">Dourada · trançada</p>
+            <h3 class="product__name">Argola Aurora</h3>
+            <p class="product__price"><span class="visually-hidden">Preço: </span>R$ 97</p>
+          </div>
+          <div class="product__actions">
+            <button type="button" class="bl-btn bl-btn--line" data-detail="argola-aurora" aria-haspopup="dialog">Detalhes<span class="visually-hidden"> de Argola Aurora</span></button>
+            <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144?text=Ol%C3%A1%21%20Vi%20no%20site%20a%20pe%C3%A7a%20Argola%20Aurora%20%28R%24%2097%29%20e%20queria%20saber%20mais." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 1.8.8c-.3 1.2-1.3 1.9-2.5 1.7C10.8 14.8 9.2 13.2 8.7 10.2 8.5 9 9.2 8 10.4 7.7l.8 1.8z"/></svg><span class="lbl">Pedir</span><span class="visually-hidden"> Argola Aurora pelo WhatsApp (abre em nova aba)</span></a>
+          </div>
+        </li>
+        <li class="product" data-id="anel-petala" data-cat="aneis" data-price="87" data-name="Anel Pétala" data-mat="Dourado · cristais lilás" data-img="assets/pecas/anel-petala.svg" data-alt="Anel dourado com uma flor de cinco pétalas lilás" data-desc="Aro fino com uma flor de cinco pétalas lilás no centro. Delicado para usar todo dia." data-order="2">
+          <div class="product__media"><img src="assets/pecas/anel-petala.svg" alt="Anel dourado com uma flor de cinco pétalas lilás" width="400" height="400" decoding="async"></div>
+          <div class="product__body">
+            <p class="product__mat">Dourado · cristais lilás</p>
+            <h3 class="product__name">Anel Pétala</h3>
+            <p class="product__price"><span class="visually-hidden">Preço: </span>R$ 87</p>
+          </div>
+          <div class="product__actions">
+            <button type="button" class="bl-btn bl-btn--line" data-detail="anel-petala" aria-haspopup="dialog">Detalhes<span class="visually-hidden"> de Anel Pétala</span></button>
+            <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144?text=Ol%C3%A1%21%20Vi%20no%20site%20a%20pe%C3%A7a%20Anel%20P%C3%A9tala%20%28R%24%2087%29%20e%20queria%20saber%20mais." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 1.8.8c-.3 1.2-1.3 1.9-2.5 1.7C10.8 14.8 9.2 13.2 8.7 10.2 8.5 9 9.2 8 10.4 7.7l.8 1.8z"/></svg><span class="lbl">Pedir</span><span class="visually-hidden"> Anel Pétala pelo WhatsApp (abre em nova aba)</span></a>
+          </div>
+        </li>
+        <li class="product" data-id="riviera-lua" data-cat="pulseiras" data-price="147" data-name="Pulseira Riviera Lua" data-mat="Prateada · zircônias" data-img="assets/pecas/pulseira-riviera.svg" data-alt="Pulseira riviera prateada com uma fileira de zircônias" data-desc="Fileira contínua de zircônias que brilha a cada movimento. Para quem gosta de um ponto de luz no pulso." data-order="3">
+          <div class="product__media"><img src="assets/pecas/pulseira-riviera.svg" alt="Pulseira riviera prateada com uma fileira de zircônias" width="400" height="400" decoding="async"></div>
+          <div class="product__body">
+            <p class="product__mat">Prateada · zircônias</p>
+            <h3 class="product__name">Pulseira Riviera Lua</h3>
+            <p class="product__price"><span class="visually-hidden">Preço: </span>R$ 147</p>
+          </div>
+          <div class="product__actions">
+            <button type="button" class="bl-btn bl-btn--line" data-detail="riviera-lua" aria-haspopup="dialog">Detalhes<span class="visually-hidden"> de Pulseira Riviera Lua</span></button>
+            <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144?text=Ol%C3%A1%21%20Vi%20no%20site%20a%20pe%C3%A7a%20Pulseira%20Riviera%20Lua%20%28R%24%20147%29%20e%20queria%20saber%20mais." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 1.8.8c-.3 1.2-1.3 1.9-2.5 1.7C10.8 14.8 9.2 13.2 8.7 10.2 8.5 9 9.2 8 10.4 7.7l.8 1.8z"/></svg><span class="lbl">Pedir</span><span class="visually-hidden"> Pulseira Riviera Lua pelo WhatsApp (abre em nova aba)</span></a>
+          </div>
+        </li>
+        <li class="product" data-id="gota-orquidea" data-cat="brincos" data-price="79" data-name="Brinco Gota Orquídea" data-mat="Dourado · cristal lilás" data-img="assets/pecas/brinco-gota-orquidea.svg" data-alt="Par de brincos em formato de gota com cristal lilás e moldura dourada" data-desc="Gota de cristal lilás com moldura dourada e ponto de luz no topo. Leve na orelha." data-order="4">
+          <div class="product__media"><img src="assets/pecas/brinco-gota-orquidea.svg" alt="Par de brincos em formato de gota com cristal lilás e moldura dourada" width="400" height="400" loading="lazy" decoding="async"></div>
+          <div class="product__body">
+            <p class="product__mat">Dourado · cristal lilás</p>
+            <h3 class="product__name">Brinco Gota Orquídea</h3>
+            <p class="product__price"><span class="visually-hidden">Preço: </span>R$ 79</p>
+          </div>
+          <div class="product__actions">
+            <button type="button" class="bl-btn bl-btn--line" data-detail="gota-orquidea" aria-haspopup="dialog">Detalhes<span class="visually-hidden"> de Brinco Gota Orquídea</span></button>
+            <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144?text=Ol%C3%A1%21%20Vi%20no%20site%20a%20pe%C3%A7a%20Brinco%20Gota%20Orqu%C3%ADdea%20%28R%24%2079%29%20e%20queria%20saber%20mais." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 1.8.8c-.3 1.2-1.3 1.9-2.5 1.7C10.8 14.8 9.2 13.2 8.7 10.2 8.5 9 9.2 8 10.4 7.7l.8 1.8z"/></svg><span class="lbl">Pedir</span><span class="visually-hidden"> Brinco Gota Orquídea pelo WhatsApp (abre em nova aba)</span></a>
+          </div>
+        </li>
+        <li class="product" data-id="ponto-de-luz" data-cat="colares" data-price="127" data-name="Colar Ponto de Luz" data-mat="Dourado · zircônia" data-img="assets/pecas/colar-ponto-de-luz.svg" data-alt="Colar dourado com pingente redondo de zircônia" data-desc="Corrente delicada com um pingente redondo de zircônia cercado por pequenos pontos de luz." data-order="5">
+          <div class="product__media"><img src="assets/pecas/colar-ponto-de-luz.svg" alt="Colar dourado com pingente redondo de zircônia" width="400" height="400" loading="lazy" decoding="async"></div>
+          <div class="product__body">
+            <p class="product__mat">Dourado · zircônia</p>
+            <h3 class="product__name">Colar Ponto de Luz</h3>
+            <p class="product__price"><span class="visually-hidden">Preço: </span>R$ 127</p>
+          </div>
+          <div class="product__actions">
+            <button type="button" class="bl-btn bl-btn--line" data-detail="ponto-de-luz" aria-haspopup="dialog">Detalhes<span class="visually-hidden"> de Colar Ponto de Luz</span></button>
+            <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144?text=Ol%C3%A1%21%20Vi%20no%20site%20a%20pe%C3%A7a%20Colar%20Ponto%20de%20Luz%20%28R%24%20127%29%20e%20queria%20saber%20mais." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 1.8.8c-.3 1.2-1.3 1.9-2.5 1.7C10.8 14.8 9.2 13.2 8.7 10.2 8.5 9 9.2 8 10.4 7.7l.8 1.8z"/></svg><span class="lbl">Pedir</span><span class="visually-hidden"> Colar Ponto de Luz pelo WhatsApp (abre em nova aba)</span></a>
+          </div>
+        </li>
+        <li class="product" data-id="pulseira-elo" data-cat="pulseiras" data-price="89" data-name="Pulseira Elo" data-mat="Dourada · elos" data-img="assets/pecas/pulseira-elo.svg" data-alt="Pulseira dourada de elos ovais" data-desc="Elos ovais encadeados com fecho discreto. Fica ótima sozinha ou misturada com outras pulseiras." data-order="6">
+          <div class="product__media"><img src="assets/pecas/pulseira-elo.svg" alt="Pulseira dourada de elos ovais" width="400" height="400" loading="lazy" decoding="async"></div>
+          <div class="product__body">
+            <p class="product__mat">Dourada · elos</p>
+            <h3 class="product__name">Pulseira Elo</h3>
+            <p class="product__price"><span class="visually-hidden">Preço: </span>R$ 89</p>
+          </div>
+          <div class="product__actions">
+            <button type="button" class="bl-btn bl-btn--line" data-detail="pulseira-elo" aria-haspopup="dialog">Detalhes<span class="visually-hidden"> de Pulseira Elo</span></button>
+            <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144?text=Ol%C3%A1%21%20Vi%20no%20site%20a%20pe%C3%A7a%20Pulseira%20Elo%20%28R%24%2089%29%20e%20queria%20saber%20mais." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 1.8.8c-.3 1.2-1.3 1.9-2.5 1.7C10.8 14.8 9.2 13.2 8.7 10.2 8.5 9 9.2 8 10.4 7.7l.8 1.8z"/></svg><span class="lbl">Pedir</span><span class="visually-hidden"> Pulseira Elo pelo WhatsApp (abre em nova aba)</span></a>
+          </div>
+        </li>
+        <li class="product" data-id="ear-cuff-lirio" data-cat="brincos" data-price="57" data-name="Ear Cuff Lírio" data-mat="Dourado · cravejado" data-img="assets/pecas/ear-cuff-lirio.svg" data-alt="Ear cuff dourado em curva com pequenas pedras cravejadas" data-desc="Ear cuff em curva com pequenas pedras cravejadas. Encaixa na orelha sem precisar de furo." data-order="7">
+          <div class="product__media"><img src="assets/pecas/ear-cuff-lirio.svg" alt="Ear cuff dourado em curva com pequenas pedras cravejadas" width="400" height="400" loading="lazy" decoding="async"></div>
+          <div class="product__body">
+            <p class="product__mat">Dourado · cravejado</p>
+            <h3 class="product__name">Ear Cuff Lírio</h3>
+            <p class="product__price"><span class="visually-hidden">Preço: </span>R$ 57</p>
+          </div>
+          <div class="product__actions">
+            <button type="button" class="bl-btn bl-btn--line" data-detail="ear-cuff-lirio" aria-haspopup="dialog">Detalhes<span class="visually-hidden"> de Ear Cuff Lírio</span></button>
+            <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144?text=Ol%C3%A1%21%20Vi%20no%20site%20a%20pe%C3%A7a%20Ear%20Cuff%20L%C3%ADrio%20%28R%24%2057%29%20e%20queria%20saber%20mais." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 1.8.8c-.3 1.2-1.3 1.9-2.5 1.7C10.8 14.8 9.2 13.2 8.7 10.2 8.5 9 9.2 8 10.4 7.7l.8 1.8z"/></svg><span class="lbl">Pedir</span><span class="visually-hidden"> Ear Cuff Lírio pelo WhatsApp (abre em nova aba)</span></a>
+          </div>
+        </li>
+      </ul>
+      <div class="empty" data-empty hidden>
+        <p class="h3">Nenhuma peça encontrada</p>
+        <p class="muted" style="margin:0">Tente outra palavra ou outra categoria. Se procura algo específico, pergunte no WhatsApp.</p>
+        <button type="button" class="bl-btn bl-btn--line" data-clear>Limpar filtros</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="curadoria" aria-labelledby="cur-titulo">
+    <div class="container story">
+      <figure class="story__photo">
+        <picture>
+          <source type="image/webp" srcset="assets/fotos/banca-800.webp 800w, assets/fotos/banca-1200.webp 1200w" sizes="(max-width: 767px) 100vw, 55vw">
+          <img src="assets/fotos/banca-1200.jpg" srcset="assets/fotos/banca-800.jpg 800w, assets/fotos/banca-1200.jpg 1200w" sizes="(max-width: 767px) 100vw, 55vw" width="1200" height="908" loading="lazy" decoding="async" alt="A banca da Bloomina: toalha de cetim rosé, bustos e expositores de linho com colares, brincos, anéis e pulseiras douradas e prateadas">
+        </picture>
+        <figcaption>A banca da Bloomina.</figcaption>
+      </figure>
+      <div class="story__copy">
+        <p class="eyebrow">A curadoria</p>
+        <h2 class="h2" id="cur-titulo">Escolher é o nosso trabalho</h2>
+        <p>A Bloomina é a curadoria de semijoias de @eubemju e @lud_asilva. Em vez de um catálogo sem fim, uma seleção de peças pensadas para combinar com você.</p>
+        <p>As peças aparecem na nossa banca e no Instagram. Para tirar dúvidas ou reservar, é só falar com a gente.</p>
+        <p class="quote">Vem brilhar com a gente.</p>
+        <a class="bl-btn bl-btn--line" href="https://www.instagram.com/usebloomina.semijoias/" target="_blank" rel="noopener">Ver no Instagram<span class="visually-hidden"> (abre em nova aba)</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="como-comprar" aria-labelledby="comprar-titulo">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Como comprar</p>
+        <h2 class="h2" id="comprar-titulo">Do site para as suas mãos</h2>
+      </div>
+      <ol class="steps">
+        <li><h3 class="h3">Escolha a peça</h3><p>Aqui na vitrine ou no Instagram. Anote o nome dela.</p></li>
+        <li><h3 class="h3">Chame no WhatsApp</h3><p>O botão “Pedir” de cada peça já abre a conversa com o nome e o preço.</p></li>
+        <li><h3 class="h3">Combine com a gente</h3><p>Pagamento, entrega ou retirada são combinados direto no atendimento.</p></li>
+      </ol>
+      <div class="buy-foot">
+        <a class="bl-btn bl-btn--gold" href="https://wa.me/5521981264144" target="_blank" rel="noopener">Falar no WhatsApp<span class="visually-hidden"> (abre em nova aba)</span></a>
+        <p>Formas de pagamento, prazos de entrega e trocas são informados no atendimento.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="cuidados" aria-labelledby="cuid-titulo">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Cuidados</p>
+        <h2 class="h2" id="cuid-titulo">Para a sua peça durar mais</h2>
+      </div>
+      <ul class="care">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg><h3 class="h3">Guarde separada</h3><p>Uma peça por saquinho ou compartimento, para que uma não risque a outra.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/><path d="M4 4l16 16"/></svg><h3 class="h3">Longe de água e perfume</h3><p>Tire antes do banho, do mar, da piscina e da academia. Perfume e creme primeiro, a peça depois.</p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l10-10"/><path d="M14 4l1.2 2.8L18 8l-2.8 1.2L14 12l-1.2-2.8L10 8l2.8-1.2z"/></svg><h3 class="h3">Limpe com flanela</h3><p>Uma flanela macia e seca depois de usar mantém o brilho. Evite produtos abrasivos.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ig-titulo">
+    <div class="container social">
+      <p class="eyebrow">Instagram</p>
+      <h2 class="h2" id="ig-titulo">As novidades aparecem primeiro por lá</h2>
+      <a class="bl-btn bl-btn--gold" href="https://www.instagram.com/usebloomina.semijoias/" target="_blank" rel="noopener">Seguir @usebloomina.semijoias<span class="visually-hidden"> (abre em nova aba)</span></a>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <a class="brand" href="#inicio"><img src="assets/logo-avatar.png" alt=""><span>Bloomina</span></a>
-    <p class="demo-note" style="margin:0">Por @eubemju e @lud_asilva · Demonstração do design system · <a href="apresentacao/">Ver a apresentação</a></p>
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="./" style="margin-bottom:12px"><img src="assets/logo-96.png" alt="" width="44" height="44" loading="lazy"><span>Bloomina</span></a>
+        <p>Curadoria de semijoias. Floresça no seu estilo.</p>
+        <p>Por @eubemju e @lud_asilva.</p>
+      </div>
+      <nav aria-labelledby="f-nav">
+        <h2 id="f-nav">Navegue</h2>
+        <ul><li><a href="#categorias">Categorias</a></li><li><a href="#pecas">Peças</a></li><li><a href="#curadoria">A curadoria</a></li><li><a href="#cuidados">Cuidados</a></li></ul>
+      </nav>
+      <div>
+        <h2>Atendimento</h2>
+        <ul><li><a href="https://wa.me/5521981264144" target="_blank" rel="noopener">WhatsApp 21 98126-4144</a></li><li><a href="https://www.instagram.com/usebloomina.semijoias/" target="_blank" rel="noopener">Instagram @usebloomina.semijoias</a></li><li><a href="#como-comprar">Como comprar</a></li></ul>
+      </div>
+      <div>
+        <h2>Sobre esta página</h2>
+        <ul><li><a href="apresentacao/">Apresentação do design system</a></li><li><a href="apresentacao/bloomina-apresentacao.pdf">Apresentação em PDF</a></li></ul>
+      </div>
+    </div>
+    <div class="footer__legal"><span>© 2026 Bloomina</span><span>Vitrine demonstrativa: peças e preços fictícios.</span></div>
   </div>
 </footer>
 
-<script>
-  (function () {
-    var root = document.documentElement, KEY = 'bloomina-theme';
-    var btns = document.querySelectorAll('[data-set-theme]');
-    function current() { return root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
-    function sync() { var t = current(); btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setTheme === t)); }); }
-    try { var saved = localStorage.getItem(KEY); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
-    btns.forEach(function (b) { b.addEventListener('click', function () { root.setAttribute('data-theme', b.dataset.setTheme); try { localStorage.setItem(KEY, b.dataset.setTheme); } catch (e) {} sync(); }); });
-    sync();
+<dialog class="detail" id="detalhe" aria-labelledby="detalhe-nome">
+  <div class="detail__grid">
+    <div class="detail__media"><img src="" alt="" width="400" height="400" data-d-img></div>
+    <div class="detail__body">
+      <button type="button" class="icon-btn detail__close" data-close aria-label="Fechar detalhes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <p class="product__mat" data-d-mat></p>
+      <h2 class="product__name" id="detalhe-nome" data-d-name></h2>
+      <p class="product__price" data-d-price></p>
+      <p data-d-desc></p>
+      <a class="bl-btn bl-btn--gold" href="#" target="_blank" rel="noopener" data-d-wa>Pedir pelo WhatsApp<span class="visually-hidden"> (abre em nova aba)</span></a>
+      <dl class="detail__list">
+        <div><dt>Categoria</dt><dd data-d-cat></dd></div>
+        <div><dt>Cuidados</dt><dd>Guarde separada, longe de água e perfume.</dd></div>
+        <div><dt>Observação</dt><dd>Peça e preço demonstrativos.</dd></div>
+      </dl>
+    </div>
+  </div>
+</dialog>
 
-    var chips = document.querySelectorAll('[data-filter]'), cards = document.querySelectorAll('#grid .bl-card');
-    chips.forEach(function (c) { c.addEventListener('click', function () {
-      var f = c.dataset.filter;
-      chips.forEach(function (x) { x.setAttribute('aria-pressed', String(x === c)); });
-      cards.forEach(function (card) { card.hidden = !(f === 'todas' || card.dataset.cat === f); });
-    }); });
-  })();
-</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>
